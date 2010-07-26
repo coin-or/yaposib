@@ -1,0 +1,30 @@
+#---------------------------------------------------------------------#
+# BUILDING
+#---------------------------------------------------------------------#
+o On GNU Linux:
+
+- install COIN-OSI
+- install boost-python
+- set src/Makefile according to your installation
+- cd src; make
+
+o On MS Windows:
+
+Untested. Should work the same way. Testers, feedback is welcome.
+
+#---------------------------------------------------------------------#
+# TESTING
+#---------------------------------------------------------------------#
+import yaposib
+yaposib.test()
+
+#---------------------------------------------------------------------#
+# USING
+#---------------------------------------------------------------------#
+Look a the examples in examples/
+Look at the file QuickRefManual
+
+#---------------------------------------------------------------------#
+# REPORTING BUGS
+#---------------------------------------------------------------------#
+please reports the bugs to <chm.duquesne@gmail.com>
