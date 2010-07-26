@@ -35,6 +35,12 @@ USING
 Look a the examples in examples/
 Look at the file QuickRefManual
 
+ADDING TESTS
+============
+Tests can easily be added in src/yaposib.py
+Just add a test function and get this test function called by the main
+test.
+
 REPORTING BUGS
 ==============
 please reports the bugs to <chm.duquesne@gmail.com>
