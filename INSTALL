@@ -1,0 +1,19 @@
+DEPENDENCIES
+============
+
+yaposib depends on
+- boost python http://www.boost.org
+- coin osi https://projects.coin-or.org/Osi
+
+BUILDING
+========
+o On GNU Linux:
+
+- install COIN-OSI
+- install boost-python
+- set src/Makefile according to your installation
+- cd src; make
+
+o On MS Windows:
+
+Untested. Should work the same way. Testers, feedback is welcome.

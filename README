@@ -1,30 +1,40 @@
-#---------------------------------------------------------------------#
-# BUILDING
-#---------------------------------------------------------------------#
-o On GNU Linux:
+YAPOSIB LIBRARY README
+=============================
 
-- install COIN-OSI
-- install boost-python
-- set src/Makefile according to your installation
-- cd src; make
+OVERVIEW
+========
 
-o On MS Windows:
+Welcome to the yaposib python library. Yaposib is a python binding to OSI,
+the Open Solver Interface from COIN-OR. It intends to give access to
+various solvers through python. Yaposib was created in order to be
+integrated in pulp-or (http://code.google.com/p/pulp-or).
 
-Untested. Should work the same way. Testers, feedback is welcome.
+YAPOSIB PROJECT PAGE
+====================
 
-#---------------------------------------------------------------------#
-# TESTING
-#---------------------------------------------------------------------#
+yaposib is hosted on https://code.google.com/p/yaposib
+
+DEPENDENCIES
+============
+
+yaposib depends on
+- boost python http://www.boost.org
+- coin osi https://projects.coin-or.org/Osi
+
+INSTALLATION
+============
+To install this package, please look at the INSTALL file.
+
+TESTING
+=======
 import yaposib
 yaposib.test()
 
-#---------------------------------------------------------------------#
-# USING
-#---------------------------------------------------------------------#
+USING
+=====
 Look a the examples in examples/
 Look at the file QuickRefManual
 
-#---------------------------------------------------------------------#
-# REPORTING BUGS
-#---------------------------------------------------------------------#
+REPORTING BUGS
+==============
 please reports the bugs to <chm.duquesne@gmail.com>
