@@ -1,5 +1,3 @@
-import sys
-sys.path.append("/home/me/yaposib/src/")
 import yaposib
 
 if __name__ == "__main__":
