@@ -3,19 +3,54 @@
 /// @author Christophe-Marie Duquesne <chm.duquesne@gmail.com>
 /// created the 2010-07-21
 
+// OSI includes
 #include <coin/OsiSolverInterface.hpp>
+#ifdef Cbc
+#include <coin/OsiCbcSolverInterface.hpp>
+#endif
 #ifdef Clp
 #include <coin/OsiClpSolverInterface.hpp>
+#endif
+#ifdef Cpx
+#include <coin/OsiCpxSolverInterface.hpp>
+#endif
+#ifdef Dylp
+#include <coin/OsiDylpSolverInterface.hpp>
+#endif
+#ifdef Fmp
+#include <coin/OsiFmpSolverInterface.hpp>
 #endif
 #ifdef Glpk
 #include <coin/OsiGlpkSolverInterface.hpp>
 #endif
+#ifdef Grb
+#include <coin/OsiGrbSolverInterface.hpp>
+#endif
+#ifdef Msk
+#include <coin/OsiMskSolverInterface.hpp>
+#endif
+#ifdef Osl
+#include <coin/OsiOslSolverInterface.hpp>
+#endif
+#ifdef Spx
+#include <coin/OsiSpxSolverInterface.hpp>
+#endif
+#ifdef Sym
+#include <coin/OsiSymSolverInterface.hpp>
+#endif
+#ifdef Vol
+#include <coin/OsiVolSolverInterface.hpp>
+#endif
+#ifdef Xpr
+#include <coin/OsiXprSolverInterface.hpp>
+#endif
 #include <coin/CoinPackedVector.hpp>
 #include <coin/CoinShallowPackedVector.hpp>
 #include <coin/CoinPackedMatrix.hpp>
+
+// std includes
 #include <stdexcept>
 #include <algorithm>
-
 #include <iostream>
 
 Problem::Problem(std::string solverName) :
@@ -23,16 +58,82 @@ Problem::Problem(std::string solverName) :
     _hasHotStart(false),
     _hasBeenSolved(false)
 {
+#ifdef Cbc
+    if (solverName == "Cbc")
+    {
+        _solver = new OsiCbcSolverInterface();
+    }
+#endif
 #ifdef Clp
     if (solverName == "Clp")
     {
         _solver = new OsiClpSolverInterface();
     }
 #endif
+#ifdef Cpx
+    if (solverName == "Cpx")
+    {
+        _solver = new OsiCpxSolverInterface();
+    }
+#endif
+#ifdef Dylp
+    if (solverName == "Dylp")
+    {
+        _solver = new OsiDylpSolverInterface();
+    }
+#endif
+#ifdef Fmp
+    if (solverName == "Fmp")
+    {
+        _solver = new OsiFmpSolverInterface();
+    }
+#endif
 #ifdef Glpk
     if (solverName == "Glpk")
     {
         _solver = new OsiGlpkSolverInterface();
+    }
+#endif
+#ifdef Grb
+    if (solverName == "Grb")
+    {
+        _solver = new OsiGrbSolverInterface();
+    }
+#endif
+#ifdef Msk
+    if (solverName == "Msk")
+    {
+        _solver = new OsiMskSolverInterface();
+    }
+#endif
+#ifdef Osl
+    if (solverName == "Osl")
+    {
+        _solver = new OsiOslSolverInterface();
+    }
+#endif
+#ifdef Spx
+    if (solverName == "Spx")
+    {
+        _solver = new OsiSpxSolverInterface();
+    }
+#endif
+#ifdef Sym
+    if (solverName == "Sym")
+    {
+        _solver = new OsiSymSolverInterface();
+    }
+#endif
+#ifdef Vol
+    if (solverName == "Vol")
+    {
+        _solver = new OsiVolSolverInterface();
+    }
+#endif
+#ifdef Xpr
+    if (solverName == "Xpr")
+    {
+        _solver = new OsiXprSolverInterface();
     }
 #endif
     if (_solver == NULL)

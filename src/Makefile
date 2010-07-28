@@ -6,15 +6,28 @@
 #---------------------------------------------------------------------#
 KNOWN_SOLVERS = -DClp
 
+# Possible choices (You must have these solvers on your machine and
+# have compiled OSI with support for them)
+#KNOWN_SOLVERS = -DCbc -DClp -DCpx -DDylp -DFmp -DGlpk -DGrb -DMsk \
+                 -DOsl -DSpx -DSym -DVol -DXpr
+
 #---------------------------------------------------------------------#
 # Change to fit your OSI installation
 #---------------------------------------------------------------------#
-OSI_INC = -I /opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/include/ \
-          $(KNOWN_SOLVERS)
-OSI_LNK = -L/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/lib \
-          -lOsi -lCoinUtils -llapack -lblas -lm  -lglpk \
-          -L/opt/ilog/cplex121/bin/x86_debian4.0_4.1 \
-          -lOsiClp -lClp -lOsiGlpk $(KNOWN_SOLVERS)
+# OSI include path: must contain path to the file
+# coin/OsiSolverInterface.hpp
+OSI_INC = $(KNOWN_SOLVERS) \
+          -I /opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/include/
+
+# OSI link flags: must contain necessary flags for linking to OSI.
+# This includes OSI link path, link path for each solver you want to
+# add, link flags for OSI, link flags for each solver you want to add,
+# and specific link flags for OSI-Solver for each solver you want to
+# add.
+OSI_LNK = $(KNOWN_SOLVERS) \
+          -L/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/lib \
+          -lOsi -lCoinUtils -llapack -lblas -lm -lglpk \
+          -lOsiClp -lClp -lOsiGlpk
 
 #---------------------------------------------------------------------#
 # Change if you have a non standard boost python installation
