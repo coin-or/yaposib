@@ -2,8 +2,9 @@
 """
 Setup script for yaposib
 """
-#from distutils.core import setup
-from setuptools import setup, find_packages
+from setuptools import setup, Extension
+import platform
+import sys
 
 Description = """
 A comprehensive wiki can be found at https://code.google.code/p/yaposib/
@@ -12,7 +13,7 @@ Exported Classes:
     Problem
 
 Exported Functions:
-    vec
+    vec, test
 """
 License = """
 Copyright (c) 20010, Christophe-Marie Duquesne <chm.duquesne@gmail.com>
@@ -239,6 +240,46 @@ one year after the cause of action arose. Each party waives its rights to
 a jury trial in any resulting litigation.
 """
 
+theOS = platform.system()
+if theOS == 'Linux':
+    execfile("Linux.conf")
+else:
+    print "OS not supported."
+    sys.exit(-1)
+
+SOLVERS_LIBS = []
+for solver in SOLVERS.values():
+    SOLVERS_LIBS += solver["LIBS"]
+
+_yaposib = Extension("_yaposib",
+        define_macros = [(solver, None) for solver in SOLVERS.keys()],
+        sources = [
+            "src/CArrays.cpp",
+            "src/Col.cpp",
+            "src/Row.cpp",
+            "src/Obj.cpp",
+            "src/Problem.cpp",
+            "src/Binding.cpp"
+            ],
+        include_dirs =
+              [ OSI_INC_DIR,
+                PYTHON_INC_DIR,
+                BOOST_INC_DIR ]
+            + [ solver["INC_DIR"] for solver in SOLVERS.values() ],
+        library_dirs =
+              [ OSI_LNK_DIR,
+                PYTHON_LNK_DIR,
+                BOOST_LNK_DIR ]
+            + [ solver["LNK_DIR"] for solver in SOLVERS.values() ],
+        libraries =
+              OSI_COMMON_LIBS
+            + PYTHON_LIBS
+            + BOOST_LIBS
+            + SOLVERS_LIBS
+            + [ "Osi" + solver for solver in SOLVERS.keys() ],
+        language = 'c++'
+        )
+
 setup(name="yaposib",
       version="0.1",
       description="""
@@ -264,5 +305,5 @@ setup(name="yaposib",
       ],
       packages = ['yaposib'],
       package_dir={'yaposib':'src'},
-      package_data = {'yaposib' : ["AUTHORS","LICENSE","_yaposib.so",
-          "yaposib.py" ]})
+      ext_modules = [_yaposib],
+      package_data = {'yaposib' : ["AUTHORS","LICENSE","yaposib.py" ]})
