@@ -11,11 +11,10 @@ o On GNU Linux:
 
 - install COIN-OSI
 - install boost-python
-- modify src/Makefile according to your OSI installation
-- cd src; make (to generate the shared library)
-- at the root of the project, run 'python setup.py bdist_egg'
+- modify the file Linux.conf according to your OSI installation
+- run 'python setup.py bdist_egg'
 - install the egg generated in dist/ with easy_install
 
 o On MS Windows:
 
-Untested. Should work the same way. Testers, feedback is welcome.
+Untested. Help wanted.
