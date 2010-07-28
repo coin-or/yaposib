@@ -7,7 +7,7 @@ def vec(listOfPairs):
         vec.insert(pair[0], pair[1])
     return vec
 
-if __name__ == "__main__":
+def test():
     """
     builds the following problem
 
@@ -69,3 +69,6 @@ if __name__ == "__main__":
         print "%s=%s" % (col.name, col.solution)
 
     print "ok"
+
+if __name__ == "__main__":
+    test()
