@@ -1,33 +1,27 @@
 #---------------------------------------------------------------------#
-# Makefile for compiling the binding
+# Makefile for compiling yaposib
 #---------------------------------------------------------------------#
-#---------------------------------------------------------------------#
-# Solvers you whish to compile the library for (need to be installed)
-#---------------------------------------------------------------------#
-KNOWN_SOLVERS = -DClp
 
-# Possible choices (You must have these solvers on your machine and
-# have compiled OSI with support for them)
-#KNOWN_SOLVERS = -DCbc -DClp -DCpx -DDylp -DFmp -DGlpk -DGrb -DMsk \
-                 -DOsl -DSpx -DSym -DVol -DXpr
-
-#---------------------------------------------------------------------#
-# Change to fit your OSI installation
-#---------------------------------------------------------------------#
-# OSI include path: must contain path to the file
-# coin/OsiSolverInterface.hpp
-OSI_INC = $(KNOWN_SOLVERS) \
-          -I /opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/include/
+# OSI flags: must contain:
+# - OSI include path = path to the directory that contains
+#   coin/OsiSolverInterface.hpp
+# - For each solver that has to be supported:
+#   - the include path for the solver
+#   - the right option -D{Solver} (where ${Solver} is picked among: Cbc
+#     Clp Cpx Dylp Fmp Glpk Grb Msk Osl Spx Sym Vol Xpr)
+OSI_INC = -I/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/include/ -DClp
 
 # OSI link flags: must contain necessary flags for linking to OSI.
-# This includes OSI link path, link path for each solver you want to
-# add, link flags for OSI, link flags for each solver you want to add,
-# and specific link flags for OSI-Solver for each solver you want to
-# add.
-OSI_LNK = $(KNOWN_SOLVERS) \
-          -L/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/lib \
-          -lOsi -lCoinUtils -llapack -lblas -lm -lglpk \
-          -lOsiClp -lClp -lOsiGlpk
+# This includes:
+# - OSI link path = path to the directory that contains libOsi.so
+# - link flags for OSI (i.e. -lOsi -lCoinUtils)
+# - For each solver that has to be supported:
+#   - link path for each solver you want to add
+#   - link flags for each solver you want to add
+#   - the right link flag -lOsi{Solver} (where ${Solver} is picked among:
+#     Cbc Clp Cpx Dylp Fmp Glpk Grb Msk Osl Spx Sym Vol Xpr)
+OSI_LNK = -L/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/lib \
+          -lOsi -lCoinUtils -lClp -lOsiClp
 
 #---------------------------------------------------------------------#
 # Change if you have a non standard boost python installation
