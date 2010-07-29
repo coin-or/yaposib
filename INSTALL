@@ -1,20 +1,43 @@
-DEPENDENCIES
+Installing the default egg that only supports Clp
+=================================================
+
+For linux users, a python egg is provided. However, it only has support for Clp and cannot invoke other solvers.
+
+  * Install python-setuptools
+  * [http://code.google.com/p/yaposib/downloads/detail?name=yaposib-0.1-py2.6-linux-i686.egg Download] it
+  * As root: `easy_install yaposib-0.1-py2.6-linux-i686.egg`.
+
+You can then test it in the python interpreter:
+>>> import yaposib
+>>> yaposib.test()
+
+The egg embeds all the necessary shared libraries so that you don't have to bother about compiling and installing them. It was built for linux i686, python 2.6.
+
+Building an egg with support for other solvers
+==============================================
+
+In order to profit from yaposib full capabilities, you need to recompile it for yourself. Work should be done in the future in order to avoid this step, but this mostly depends on OSI and the way its packaging will evolve.
+
+Dependencies
 ============
 
 yaposib depends on
-- boost python http://www.boost.org
-- coin osi https://projects.coin-or.org/Osi
+  * boost python (http://www.boost.org)
+  * coin-osi (https://projects.coin-or.org/Osi)
+You need to install both of them in order to compile it.
 
-BUILDING
-========
-o On GNU Linux:
+Procedure
+=========
 
-- install COIN-OSI
-- install boost-python
-- modify the file Linux.conf according to your OSI installation
-- run 'python setup.py bdist_egg'
-- install the egg generated in dist/ with easy_install
+On GNU Linux
+============
 
-o On MS Windows:
+  * Install the dependencies
+  * Modify the file Linux.conf according to your OSI installation
+  * Run 'python setup.py bdist_egg'
+  * Install the egg generated in dist/ with easy_install
 
-Untested. Help wanted.
+On MS Windows
+=============
+
+Untested, help wanted.
