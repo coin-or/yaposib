@@ -5,6 +5,7 @@ Setup script for yaposib
 from setuptools import setup, Extension
 import platform
 import sys
+import ConfigParser
 
 Description = """
 A comprehensive wiki can be found at https://code.google.code/p/yaposib/
@@ -240,19 +241,26 @@ one year after the cause of action arose. Each party waives its rights to
 a jury trial in any resulting litigation.
 """
 
+config = ConfigParser.RawConfigParser()
+
 theOS = platform.system()
 if theOS == 'Linux':
-    execfile("Linux.conf")
+    config.read("Linux.conf")
 else:
-    print "OS not supported."
+    print("OS not supported.")
     sys.exit(-1)
 
-SOLVERS_LIBS = []
-for solver in SOLVERS.values():
-    SOLVERS_LIBS += solver["LIBS"]
+ENABLED_SOLVERS = [ solver for solver in
+        ["Cbc", "Clp", "Cpx", "Dylp", "Fmp", "Glpk", "Grb", "Msk", "Osl",
+        "Spx", "Sym", "Vol", "Xpr"] if config.get(solver, "enabled") == "true" ]
+
+SOLVER_LIBRARIES = []
+for solver in ENABLED_SOLVERS:
+    SOLVER_LIBRARIES += config.get(solver, "libraries").split(" ")
 
 _yaposib = Extension("_yaposib",
-        define_macros = [(solver, None) for solver in SOLVERS.keys()],
+        define_macros = [(solver, None) for solver in ENABLED_SOLVERS if
+            config.get(solver, "libraries")],
         sources = [
             "src/CArrays.cpp",
             "src/Col.cpp",
@@ -262,21 +270,21 @@ _yaposib = Extension("_yaposib",
             "src/Binding.cpp"
             ],
         include_dirs =
-              [ OSI_INC_DIR,
-                PYTHON_INC_DIR,
-                BOOST_INC_DIR ]
-            + [ solver["INC_DIR"] for solver in SOLVERS.values() ],
+              [ config.get("OSI",    "include_dir"),
+                config.get("python", "include_dir"),
+                config.get("boost",  "include_dir") ]
+            + [ config.get(solver,   "include_dir") for solver in ENABLED_SOLVERS],
         library_dirs =
-              [ OSI_LNK_DIR,
-                PYTHON_LNK_DIR,
-                BOOST_LNK_DIR ]
-            + [ solver["LNK_DIR"] for solver in SOLVERS.values() ],
+              [ config.get("OSI",    "library_dir"),
+                config.get("python", "library_dir"),
+                config.get("boost",  "library_dir") ]
+            + [ config.get(solver,   "library_dir") for solver in ENABLED_SOLVERS],
         libraries =
-              OSI_COMMON_LIBS
-            + PYTHON_LIBS
-            + BOOST_LIBS
-            + SOLVERS_LIBS
-            + [ "Osi" + solver for solver in SOLVERS.keys() ],
+              config.get("OSI",    "libraries").split(" ")
+            + config.get("python", "libraries").split(" ")
+            + config.get("boost",  "libraries").split(" ")
+            + SOLVER_LIBRARIES
+            + [ "Osi" + solver for solver in ENABLED_SOLVERS ],
         language = 'c++'
         )
 

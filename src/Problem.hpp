@@ -215,6 +215,8 @@ class Problem
         // ReSolve.
         // If considerMIP is true, call a branch and bound after that
         void solve(bool considerMIP);
+        void solveNormal(){this->solve(false);}
+        void solveMIP(){this->solve(true);}
 
         // returns a string describing the solver status
         // "undefined", "abandoned", "optimal", "infeasible" or
@@ -231,6 +233,7 @@ class Problem
 
         // write the problem in a file (lp format)
         void writeLp(std::string filename) const;
+        void writeDefaultLp() const{this->writeLp("debug.lp");}
 
         //-------------------------------------------------------------//
         // TUNING

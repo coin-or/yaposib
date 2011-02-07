@@ -9,7 +9,7 @@
 #   - the include path for the solver
 #   - the right option -D{Solver} (where ${Solver} is picked among: Cbc
 #     Clp Cpx Dylp Fmp Glpk Grb Msk Osl Spx Sym Vol Xpr)
-OSI_INC = -I/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/include/ -DClp
+OSI_INC = -DClp
 
 # OSI link flags: must contain necessary flags for linking to OSI.
 # This includes:
@@ -20,14 +20,13 @@ OSI_INC = -I/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/include/ -DClp
 #   - link flags for each solver you want to add
 #   - the right link flag -lOsi{Solver} (where ${Solver} is picked among:
 #     Cbc Clp Cpx Dylp Fmp Glpk Grb Msk Osl Spx Sym Vol Xpr)
-OSI_LNK = -L/opt/coin-or/CoinAll-1.3.1-debug-glpk-cplex/lib \
-          -lOsi -lCoinUtils -lClp -lOsiClp
+OSI_LNK = -lOsi -lCoinUtils -lClp -lOsiClp
 
 #---------------------------------------------------------------------#
 # Change if you have a non standard boost python installation
 #---------------------------------------------------------------------#
-PYTHON_INC = -I /usr/include/python2.6/
-PYTHON_LNK = -lboost_python -lpython2.6
+PYTHON_INC = -I /usr/include/python2.7/
+PYTHON_LNK = -lboost_python -lpython2.7
 
 #---------------------------------------------------------------------#
 # You should not need to touch this part

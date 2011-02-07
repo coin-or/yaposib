@@ -36,6 +36,10 @@ BOOST_PYTHON_MODULE(_yaposib)
         // If the argument is true, add a branch and bound call.
         .def("solve",
                 &Problem::solve)
+        .def("solve",
+                &Problem::solveNormal)
+        .def("solveMIP",
+                &Problem::solveMIP)
         // returns a string describing the solver status
         // "undefined", "abandoned", "optimal", "infeasible" or
         // "limitreached".
@@ -53,6 +57,8 @@ BOOST_PYTHON_MODULE(_yaposib)
         // appended the extension ".lp"
         .def("writeLp",
                 &Problem::writeLp)
+        .def("writeLp",
+                &Problem::writeDefaultLp)
         // The maximum number of iterations (whatever that means for the
         // given solver) the solver can execute before terminating (When
         // solving/resolving)
