@@ -1,5 +1,6 @@
 """
 Taken from pyglpk's examples
+See http://www.tfinley.net/software/pyglpk/examples.html
 """
 import yaposib
 import random

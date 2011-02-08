@@ -1,5 +1,6 @@
 """
 Taken from pyglpk examples
+See http://www.tfinley.net/software/pyglpk/examples.html
 """
 import yaposib
 
