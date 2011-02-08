@@ -249,5 +249,8 @@ class TestYaposib(unittest.TestCase):
 
         print("ok")
 
-if __name__ == '__main__':
+def main():
     unittest.main()
+
+if __name__ == '__main__':
+    main()
