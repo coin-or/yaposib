@@ -3,12 +3,6 @@ import unittest
 
 class TestYaposib(unittest.TestCase):
 
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
     def test_available_solvers(self):
         self.failIfEqual(yaposib.available_solvers(), [])
 
@@ -250,7 +244,8 @@ class TestYaposib(unittest.TestCase):
         print("ok")
 
 def main():
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestYaposib)
+    unittest.TextTestRunner(verbosity=2).run(suite)
 
 if __name__ == '__main__':
     main()
