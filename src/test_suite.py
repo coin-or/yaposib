@@ -4,7 +4,11 @@ import unittest
 class TestYaposib(unittest.TestCase):
 
     def test_available_solvers(self):
-        self.failIfEqual(yaposib.available_solvers(), [])
+        """
+        Should fail if no solver is available
+        """
+        self.failIfEqual(yaposib.available_solvers(), [],
+            "No solver available.")
 
     def test_markHotStart(self):
         pass
@@ -21,9 +25,6 @@ class TestYaposib(unittest.TestCase):
     def test_writeLP(self):
         pass
 
-    def test_obj(self):
-        pass
-
     def test_obj_value(self):
         pass
 
@@ -34,9 +35,6 @@ class TestYaposib(unittest.TestCase):
         pass
 
     def test_obj_iterate(self):
-        pass
-
-    def test_rows(self):
         pass
 
     def test_rows_add(self):
@@ -200,12 +198,9 @@ class TestYaposib(unittest.TestCase):
 
         # names
         cols = prob.cols
-        for i in range(4):
-            cols.add(yaposib.vec([]))
-        cols[0].name = "x"
-        cols[1].name = "y"
-        cols[2].name = "z"
-        cols[3].name = "w"
+        for var_name in ["x", "y", "z", "w"]:
+            col = cols.add(yaposib.vec([]))
+            col.name = var_name
         # lowerbounds
         for col in cols:
             col.lowerbound = 0
@@ -226,10 +221,8 @@ class TestYaposib(unittest.TestCase):
         rows[2].upperbound = 7
         rows[3].lowerbound = 0
         # constraints names
-        rows[0].name = "c1"
-        rows[1].name = "c2"
-        rows[2].name = "c3"
-        rows[3].name = "c4"
+        for row, name in zip(rows, ["c1", "c2", "c3", "c4"]):
+            row.name = name
 
         # obj
         prob.obj[0] = 1
