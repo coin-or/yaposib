@@ -258,6 +258,9 @@ SOLVER_LIBRARIES = []
 for solver in ENABLED_SOLVERS:
     SOLVER_LIBRARIES += config.get(solver, "libraries").split(" ")
 
+PYTHON_LIBRARY = [ "python" + str(sys.version_info[0]) + "." +
+        str(sys.version_info[1]) ]
+
 _yaposib = Extension("_yaposib",
         define_macros = [(solver, None) for solver in ENABLED_SOLVERS if
             config.get(solver, "libraries")],
@@ -281,8 +284,8 @@ _yaposib = Extension("_yaposib",
             + [ config.get(solver,   "library_dir") for solver in ENABLED_SOLVERS],
         libraries =
               config.get("OSI",    "libraries").split(" ")
-            + config.get("python", "libraries").split(" ")
             + config.get("boost",  "libraries").split(" ")
+            + PYTHON_LIBRARY
             + SOLVER_LIBRARIES
             + [ "Osi" + solver for solver in ENABLED_SOLVERS ],
         language = 'c++'
