@@ -234,8 +234,6 @@ class TestYaposib(unittest.TestCase):
         for col in prob.cols:
             print("%s=%s" % (col.name, col.solution))
 
-        print("ok")
-
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestYaposib)
     unittest.TextTestRunner(verbosity=2).run(suite)
