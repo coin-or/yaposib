@@ -2,7 +2,7 @@
 """
 Setup script for yaposib
 """
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 import platform
 import sys
 import ConfigParser
@@ -261,27 +261,29 @@ for solver in ENABLED_SOLVERS:
 PYTHON_LIBRARY = [ "python" + str(sys.version_info[0]) + "." +
         str(sys.version_info[1]) ]
 
-_yaposib = Extension("_yaposib",
+yaposib_shared_lib = Extension("_yaposib",
         define_macros = [(solver, None) for solver in ENABLED_SOLVERS if
             config.get(solver, "libraries")],
         sources = [
-            "src/CArrays.cpp",
-            "src/Col.cpp",
-            "src/Row.cpp",
-            "src/Obj.cpp",
-            "src/Problem.cpp",
-            "src/Binding.cpp"
+            "yaposib_shared_lib/CArrays.cpp",
+            "yaposib_shared_lib/Col.cpp",
+            "yaposib_shared_lib/Row.cpp",
+            "yaposib_shared_lib/Obj.cpp",
+            "yaposib_shared_lib/Problem.cpp",
+            "yaposib_shared_lib/Binding.cpp"
             ],
         include_dirs =
               [ config.get("OSI",    "include_dir"),
                 config.get("python", "include_dir"),
                 config.get("boost",  "include_dir") ]
-            + [ config.get(solver,   "include_dir") for solver in ENABLED_SOLVERS],
+            + [ config.get(solver,   "include_dir")
+                for solver in ENABLED_SOLVERS ],
         library_dirs =
               [ config.get("OSI",    "library_dir"),
                 config.get("python", "library_dir"),
                 config.get("boost",  "library_dir") ]
-            + [ config.get(solver,   "library_dir") for solver in ENABLED_SOLVERS],
+            + [ config.get(solver,   "library_dir")
+                for solver in ENABLED_SOLVERS ],
         libraries =
               config.get("OSI",    "libraries").split(" ")
             + config.get("boost",  "libraries").split(" ")
@@ -292,7 +294,7 @@ _yaposib = Extension("_yaposib",
         )
 
 setup(name="yaposib",
-      version="0.1",
+      version="0.2",
       description="""
       Yaposib is a python binding to OSI, the Open Solver Interface from
       COIN-OR. It intends to give access to various solvers through
@@ -306,15 +308,14 @@ setup(name="yaposib",
       author="Christophe-Marie Duquesne",
       author_email="chm.duquesne@gmail.com",
       url="https://code.google.code/p/yaposib/",
-      classifiers = ['Development Status :: 3 - Alpha',
-                     'Environment :: Console',
-                     'Intended Audience :: Science/Research',
-                     'License :: OSI Approved :: EPL License',
-                     'Natural Language :: English',
-                     'Programming Language :: Python',
-                     'Topic :: Scientific/Engineering :: Mathematics',
+      classifiers = ["Development Status :: 3 - Alpha",
+                     "Environment :: Console",
+                     "Intended Audience :: Science/Research",
+                     "License :: OSI Approved :: EPL License",
+                     "Natural Language :: English",
+                     "Topic :: Scientific/Engineering :: Mathematics",
       ],
-      packages = ['yaposib'],
-      package_dir={'yaposib':'src'},
-      ext_modules = [_yaposib],
-      package_data = {'yaposib' : ["AUTHORS","LICENSE","yaposib.py" ]})
+      packages = find_packages(),
+      ext_modules = [ yaposib_shared_lib ],
+      test_suite = "yaposib.test_suite"
+      )

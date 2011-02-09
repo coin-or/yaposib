@@ -54,7 +54,7 @@ Binding.o: Binding.cpp
 _yaposib.so: Problem.o Binding.o Col.o Row.o CArrays.o Obj.o
 	g++ *.o -fPIC $(OSI_LNK) $(PYTHON_LNK) -o _yaposib.so -g -Wall -shared
 
-check: _yaposib.so
+check: yaposib_shared_lib.so
 	python yaposib.py
 
 clean:
