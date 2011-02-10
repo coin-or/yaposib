@@ -321,7 +321,7 @@ package_data = [ "embedded_libs/i686/*",
         "embedded_libs/x86_64/*" ]
 
 setup(name="yaposib",
-      version="0.2.4",
+      version="0.2.5",
       description="""
       Yaposib is a python binding to OSI, the Open Solver Interface from
       COIN-OR. It intends to give access to various solvers through
