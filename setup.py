@@ -258,8 +258,8 @@ config.read("build.conf")
 # If we just want to build the egg with the embedded libraries, we
 # override the config
 if config.get("Global", "use_prebuilt_osi") == "true":
-    # We replace __init__.py in yaposib with a different __init__.py that
-    # preloads the necessary embedded libs.
+    # We use a special __init__.py yaposib that preloads the necessary
+    # embedded libs.
     shutil.copy(
             os.path.join("yaposib", "init_preload"),
             os.path.join("yaposib", "__init__.py")
@@ -270,6 +270,12 @@ if config.get("Global", "use_prebuilt_osi") == "true":
             config.read("build_x86_64.conf")
         else:
             config.read("build_i686.conf")
+else:
+    # We use a normal __init__.py
+    shutil.copy(
+            os.path.join("yaposib", "init_normal"),
+            os.path.join("yaposib", "__init__.py")
+            )
 
 embedded_solvers = [ solver for solver in SOLVERS
         if config.get(solver, "enabled") == "true" ]
