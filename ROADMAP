@@ -1,0 +1,19 @@
+Ultimate goals for yaposib:
+==========================
+- Being available precompiled on every platforms OSI is available on
+- Having a consequent test suite
+- Support every solvers
+
+Work planned
+============
+- No work on the API is planned (but feature requests will be studied).
+  The prefered method to use yaposib should be through pulp-or, so API
+  modifications should come from them.
+- Addition of unit tests.
+
+Related work
+============
+The real work on yaposib should instead be done on OSI: In the end,
+yaposib should come with a precompiled OSI that supports every solvers.
+This is not currently possible, but it should become so. Patches for
+gurobi have already been submitted, and more patches should come.

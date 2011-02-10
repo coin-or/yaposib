@@ -4,10 +4,10 @@ YAPOSIB LIBRARY README
 OVERVIEW
 ========
 
-Welcome to the yaposib python library. Yaposib is a python binding to OSI,
-the Open Solver Interface from COIN-OR. It intends to give access to
-various solvers through python. Yaposib was created in order to be
-integrated in pulp-or (http://code.google.com/p/pulp-or).
+Yaposib is a python binding to OSI, the Open Solver Interface from
+COIN-OR. It intends to give access to various solvers through python.
+Yaposib was created in order to be integrated in pulp-or
+(http://code.google.com/p/pulp-or).
 
 YAPOSIB PROJECT PAGE
 ====================

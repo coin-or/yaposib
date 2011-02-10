@@ -3,9 +3,10 @@
 Setup script for yaposib
 """
 from setuptools import setup, Extension, find_packages
-import sys
 import ConfigParser
 import platform
+import os
+import shutils
 
 Description = """
 Documentation can be found at https://code.google.code/p/yaposib/
@@ -24,31 +25,38 @@ copy of this license can be found at http://www.eclipse.org/legal/epl-v10.html
 and in the file COPYING.
 """
 
+SOLVERS = [ "Cbc", "Clp", "Cpx", "Dylp", "Fmp", "Glpk", "Grb", "Msk",
+            "Osl", "Spx", "Sym", "Vol", "Xpr"]
+
 config = ConfigParser.RawConfigParser()
 config.read("build.conf")
 
+# If we just want to build the egg with the embedded libraries, we
+# override the config
 if config.get("Global", "use_prebuilt_osi") == "true":
+    # We replace __init__.py in yaposib with a different __init__.py that
+    # preloads the necessary embedded libs.
+    shutil.copy(
+            os.path.join("yaposib", "init_preload"),
+            os.path.join("yaposib", "__init__.py")
+            )
+    # We read the right build config
     if platform.system() == "Linux":
         if platform.uname()[4] == "x86_64":
             config.read("build_x86_64.conf")
         else:
             config.read("build_i686.conf")
 
-ENABLED_SOLVERS = [ solver for solver in [ "Cbc", "Clp", "Cpx", "Dylp",
-        "Fmp", "Glpk", "Grb", "Msk", "Osl", "Spx", "Sym", "Vol", "Xpr"]
+embedded_solvers = [ solver for solver in SOLVERS
         if config.get(solver, "enabled") == "true" ]
 
-SOLVER_LIBRARIES = []
-for solver in ENABLED_SOLVERS:
-    SOLVER_LIBRARIES += config.get(solver, "libraries").split(" ")
-
-PYTHON_LIBRARY = [ "python" + str(sys.version_info[0]) + "." +
-        str(sys.version_info[1]) ]
-
-PYTHON_INCLUDE = "/usr/include/" + PYTHON_LIBRARY[0]
+# libraries we compile yaposib for
+solver_libs = []
+for solver in embedded_solvers:
+    solver_libs += config.get(solver, "libraries").split(" ")
 
 yaposib_shared_lib = Extension("_yaposib",
-        define_macros = [(solver, None) for solver in ENABLED_SOLVERS if
+        define_macros = [(solver, None) for solver in embedded_solvers if
             config.get(solver, "libraries")],
         sources = [
             "cpp/CArrays.cpp",
@@ -60,22 +68,22 @@ yaposib_shared_lib = Extension("_yaposib",
             ],
         include_dirs =
               [ config.get("OSI",    "include_dir"),
-                PYTHON_INCLUDE,
+                config.get("python", "include_dir"),
                 config.get("boost",  "include_dir") ]
             + [ config.get(solver,   "include_dir")
-                for solver in ENABLED_SOLVERS ],
+                for solver in embedded_solvers ],
         library_dirs =
               [ config.get("OSI",    "library_dir"),
                 config.get("python", "library_dir"),
                 config.get("boost",  "library_dir") ]
             + [ config.get(solver,   "library_dir")
-                for solver in ENABLED_SOLVERS ],
+                for solver in embedded_solvers ],
         libraries =
               config.get("OSI",    "libraries").split(" ")
             + config.get("boost",  "libraries").split(" ")
-            + PYTHON_LIBRARY
-            + SOLVER_LIBRARIES
-            + [ "Osi" + solver for solver in ENABLED_SOLVERS ],
+            + config.get("python", "libraries").split(" ")
+            + solver_libs
+            + [ "Osi" + solver for solver in embedded_solvers ],
         language = 'c++'
         )
 
@@ -105,5 +113,5 @@ setup(name="yaposib",
       ext_modules = [ yaposib_shared_lib ],
       test_suite = "yaposib.test_suite",
       eager_resources = [ "yaposib/embedded_libs/i686/*",
-          "yaposib/embedded_libs/x86_64/*"]
+          "yaposib/embedded_libs/x86_64/*", "AUTHORS", "COPYING" ]
       )

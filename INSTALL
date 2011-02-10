@@ -11,7 +11,7 @@ You can then test it in the python interpreter:
 >>> import yaposib
 >>> yaposib.test()
 
-The egg embeds all the necessary shared libraries so that you don't have to bother about compiling and installing them. It was built for linux i686, python 2.6.
+The egg embeds all the necessary shared libraries so that you don't have to bother about compiling and installing them.
 
 Building an egg with support for other solvers
 ==============================================
@@ -33,7 +33,7 @@ On GNU Linux
 ============
 
   * Install the dependencies
-  * Modify the file Linux.conf according to your OSI installation
+  * Modify the file build.conf according to your OSI installation
   * Run 'python setup.py bdist_egg'
   * Install the egg generated in dist/ with easy_install
 
