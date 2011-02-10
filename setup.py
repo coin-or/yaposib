@@ -6,7 +6,7 @@ from setuptools import setup, Extension, find_packages
 import ConfigParser
 import platform
 import os
-import shutils
+import shutil
 
 Description = """
 Documentation can be found at https://code.google.code/p/yaposib/
