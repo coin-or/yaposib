@@ -87,8 +87,11 @@ yaposib_shared_lib = Extension("_yaposib",
         language = 'c++'
         )
 
+package_data = [ "yaposib/embedded_libs/i686/*",
+        "yaposib/embedded_libs/x86_64/*", "AUTHORS", "COPYING" ]
+
 setup(name="yaposib",
-      version="0.2.1",
+      version="0.2.2",
       description="""
       Yaposib is a python binding to OSI, the Open Solver Interface from
       COIN-OR. It intends to give access to various solvers through
@@ -112,6 +115,6 @@ setup(name="yaposib",
       packages = find_packages(),
       ext_modules = [ yaposib_shared_lib ],
       test_suite = "yaposib.test_suite",
-      eager_resources = [ "yaposib/embedded_libs/i686/*",
-          "yaposib/embedded_libs/x86_64/*", "AUTHORS", "COPYING" ]
+      package_data = { "" : package_data },
+      eager_resources = package_data
       )
