@@ -88,7 +88,7 @@ yaposib_shared_lib = Extension("_yaposib",
         )
 
 setup(name="yaposib",
-      version="0.2",
+      version="0.2.1",
       description="""
       Yaposib is a python binding to OSI, the Open Solver Interface from
       COIN-OR. It intends to give access to various solvers through
