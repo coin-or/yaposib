@@ -339,5 +339,6 @@ setup(name="yaposib",
       packages = find_packages(),
       ext_modules = [ yaposib_shared_lib ],
       test_suite = "yaposib.test_suite",
-      eager_resources = package_data
+      eager_resources = package_data,
+      package_data = { "" : package_data }
       )
