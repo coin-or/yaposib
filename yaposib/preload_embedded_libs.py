@@ -17,22 +17,22 @@ if platform.system() == "Linux":
     if platform.uname()[4] == "x86_64":
         lib_dir = os.path.join(path, "embedded_libs", "x86_64")
         TO_PRELOAD = [
-        "libblas.so",
-        "liblapack.so",
-        "libCoinUtils.so",
-        "libOsi.so",
-        "libClp.so",
-        "libOsiClp.so",
+        "libblas.so.3gf",
+        "liblapack.so.3gf",
+        "libCoinUtils.so.0.0.0",
+        "libOsi.so.0.0.0",
+        "libClp.so.0.0.0",
+        "libOsiClp.so.0.0.0",
                 ]
     else:
         lib_dir = os.path.join(path, "embedded_libs", "i686")
         TO_PRELOAD = [
-        "libblas.so",
-        "liblapack.so",
-        "libCoinUtils.so",
-        "libOsi.so",
-        "libClp.so",
-        "libOsiClp.so",
+        "libblas.so.3.2.1",
+        "liblapack.so.3.2.1",
+        "libCoinUtils.so.0.0.0",
+        "libOsi.so.0.0.0",
+        "libClp.so.0.0.0",
+        "libOsiClp.so.0.0.0",
                 ]
 
 for lib in TO_PRELOAD:
