@@ -25,8 +25,8 @@ OSI_LNK = -lOsi -lCoinUtils -lClp -lOsiClp
 #---------------------------------------------------------------------#
 # Change if you have a non standard boost python installation
 #---------------------------------------------------------------------#
-PYTHON_INC = -I /usr/include/python2.7/
-PYTHON_LNK = -lboost_python -lpython2.7
+PYTHON_INC = -I /usr/include/python2.6
+PYTHON_LNK = -lboost_python -lpython2.6
 
 #---------------------------------------------------------------------#
 # You should not need to touch this part

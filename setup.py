@@ -5,6 +5,7 @@ Setup script for yaposib
 from setuptools import setup, Extension, find_packages
 import sys
 import ConfigParser
+import platform
 
 Description = """
 Documentation can be found at https://code.google.code/p/yaposib/
@@ -26,9 +27,16 @@ and in the file COPYING.
 config = ConfigParser.RawConfigParser()
 config.read("build.conf")
 
-ENABLED_SOLVERS = [ solver for solver in
-        ["Cbc", "Clp", "Cpx", "Dylp", "Fmp", "Glpk", "Grb", "Msk", "Osl",
-        "Spx", "Sym", "Vol", "Xpr"] if config.get(solver, "enabled") == "true" ]
+if config.get("Global", "use_prebuilt_osi") == "true":
+    if platform.system() == "Linux":
+        if platform.uname()[4] == "x86_64":
+            config.read("build_x86_64.conf")
+        else:
+            config.read("build_i686.conf")
+
+ENABLED_SOLVERS = [ solver for solver in [ "Cbc", "Clp", "Cpx", "Dylp",
+        "Fmp", "Glpk", "Grb", "Msk", "Osl", "Spx", "Sym", "Vol", "Xpr"]
+        if config.get(solver, "enabled") == "true" ]
 
 SOLVER_LIBRARIES = []
 for solver in ENABLED_SOLVERS:
@@ -36,6 +44,8 @@ for solver in ENABLED_SOLVERS:
 
 PYTHON_LIBRARY = [ "python" + str(sys.version_info[0]) + "." +
         str(sys.version_info[1]) ]
+
+PYTHON_INCLUDE = "/usr/include/" + PYTHON_LIBRARY[0]
 
 yaposib_shared_lib = Extension("_yaposib",
         define_macros = [(solver, None) for solver in ENABLED_SOLVERS if
@@ -50,7 +60,7 @@ yaposib_shared_lib = Extension("_yaposib",
             ],
         include_dirs =
               [ config.get("OSI",    "include_dir"),
-                config.get("python", "include_dir"),
+                PYTHON_INCLUDE,
                 config.get("boost",  "include_dir") ]
             + [ config.get(solver,   "include_dir")
                 for solver in ENABLED_SOLVERS ],
@@ -93,5 +103,7 @@ setup(name="yaposib",
       ],
       packages = find_packages(),
       ext_modules = [ yaposib_shared_lib ],
-      test_suite = "yaposib.test_suite"
+      test_suite = "yaposib.test_suite",
+      eager_resources = [ "yaposib/embedded_libs/i686/*",
+          "yaposib/embedded_libs/x86_64/*"]
       )
