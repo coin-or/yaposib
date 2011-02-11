@@ -23,7 +23,7 @@ if platform.system() == "Linux":
         lib_dir = os.path.join("embedded_libs", "i686")
         to_preload = [
         "libboost_python-py26.so.1.42.0",
-        "libgfortan.so.3.0.0",
+        "libgfortran.so.3.0.0",
         "libblas.so.3.2.1",
         "liblapack.so.3.2.1",
         "libCoinUtils.so.0.0.0",
