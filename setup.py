@@ -287,7 +287,8 @@ for solver in embedded_solvers:
 
 yaposib_shared_lib = Extension("_yaposib",
         define_macros = [(solver, None) for solver in embedded_solvers if
-            config.get(solver, "libraries")],
+            config.get(solver, "libraries")] + [("PY_FORMAT_LONG_LONG",
+                "I64")], # python2.7 wants PY_FORMAT_LONG_LONG to be defined
         sources = [
             "cpp/CArrays.cpp",
             "cpp/Col.cpp",
