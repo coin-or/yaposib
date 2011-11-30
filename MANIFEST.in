@@ -1,0 +1,9 @@
+include build.conf
+include AUTHORS
+include COPYING
+include README
+include docs/QuickRefManual
+include yaposib/init_normal
+include yaposib/init_preload
+recursive-include yaposib *.cpp
+recursive-include yaposib *.hpp
