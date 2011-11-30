@@ -1,6 +1,3 @@
-YAPOSIB LIBRARY README
-=============================
-
 OVERVIEW
 ========
 
@@ -27,8 +24,8 @@ To build and install this package, please look at the INSTALL file.
 
 TESTING
 =======
-import yaposib
-yaposib.test()
+    >>> import yaposib
+    >>> yaposib.test()
 
 USING
 =====
@@ -43,4 +40,4 @@ test.
 
 REPORTING BUGS
 ==============
-please reports the bugs to <chm.duquesne@gmail.com>
+Please use the bugtracker on http://code.google.com/p/yaposib/issues/list

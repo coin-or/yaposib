@@ -1,338 +1,112 @@
 #!/usr/bin/env/python
 """
-Setup script for yaposib
+Yaposib is a python binding to OSI, the Open Solver Interface from
+COIN-OR. It intends to give access to various solvers through
+python. Yaposib was created in order to be integrated in pulp-or
+(http://code.google.com/p/pulp-or).
 """
+from __future__ import with_statement
 from setuptools import setup, Extension, find_packages
 import ConfigParser
 import platform
 import os
+import os.path
 import shutil
+import urllib2
+import hashlib
+from zipfile import ZipFile
 
-Description = """
-Documentation can be found at https://code.google.code/p/yaposib/
+def security_check(filename):
+    known_hashes = ('a780bb709516a6fcc7abb05e719ed2a4d94d3bae',
+            '54dbe692f5b23f834eb2f74dcf5c3a9927c566be',
+            'f5de697e85134c42e5da00405827f7ebadadccd7')
+    assert hashlib.sha1(open(filename).read()).hexdigest() in known_hashes
 
-Exported Classes:
-    Problem, YaposibVectorError
+def download_prebuilt_osi():
+    """Downloads and extracts a prebuilt OSI"""
+    print("Downloading and extracting a prebuilt Osi, this may take time...")
+    lib, include = "lib.zip", "include.zip"
+    if not os.path.exists(lib): # don't re-download if already there
+        if platform.system() == "Linux":
+            if platform.uname()[4] == "x86_64":
+                url = 'http://yaposib.googlecode.com/files/osi_x86_64.zip'
+            else:
+                url = 'http://yaposib.googlecode.com/files/osi_i686.zip'
+        with open(lib, "wb") as f:
+            f.write(urllib2.urlopen(url).read())
+    if not os.path.exists(include): # don't re-download if already there
+        url = 'http://yaposib.googlecode.com/files/osi_headers.zip'
+        with open(include, "wb") as f:
+            f.write(urllib2.urlopen(url).read())
+    security_check(lib)
+    security_check(include)
+    ZipFile(lib, mode="r").extractall("yaposib/lib")
+    ZipFile(include, mode="r").extractall()
 
-Exported Functions:
-    vec, test, available_solvers
-"""
-License = """
-Copyright (c) 2010-2011, Christophe-Marie Duquesne <chm.duquesne@gmail.com>
-
-This code is provided under the terms of the Eclipse Public License. See
-below for a copy of this license or visit
-http://www.eclipse.org/legal/epl-v10.html
-
---
-
-Eclipse Public License -v 1.0
-
-THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS ECLIPSE
-PUBLIC LICENSE ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THE
-PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE OF THIS AGREEMENT.
-
-1. DEFINITIONS
-
-"Contribution" means:
-
-a) in the case of the initial Contributor, the initial code and
-documentation distributed under this Agreement, and
-
-b) in the case of each subsequent Contributor:
-
-i) changes to the Program, and
-
-ii) additions to the Program;
-
-where such changes and/or additions to the Program originate from and are
-distributed by that particular Contributor. A Contribution 'originates'
-from a Contributor if it was added to the Program by such Contributor
-itself or anyone acting on such Contributor's behalf. Contributions do not
-include additions to the Program which: (i) are separate modules of
-software distributed in conjunction with the Program under their own
-license agreement, and (ii) are not derivative works of the Program.
-
-"Contributor" means any person or entity that distributes the Program.
-
-"Licensed Patents " mean patent claims licensable by a Contributor which
-are necessarily infringed by the use or sale of its Contribution alone or
-when combined with the Program.
-
-"Program" means the Contributions distributed in accordance with this
-Agreement.
-
-"Recipient" means anyone who receives the Program under this Agreement,
-including all Contributors.
-
-2. GRANT OF RIGHTS
-
-a) Subject to the terms of this Agreement, each Contributor hereby grants
-Recipient a non-exclusive, worldwide, royalty-free copyright license to
-reproduce, prepare derivative works of, publicly display, publicly
-perform, distribute and sublicense the Contribution of such Contributor,
-if any, and such derivative works, in source code and object code form.
-
-b) Subject to the terms of this Agreement, each Contributor hereby grants
-Recipient a non-exclusive, worldwide, royalty-free patent license under
-Licensed Patents to make, use, sell, offer to sell, import and otherwise
-transfer the Contribution of such Contributor, if any, in source code and
-object code form. This patent license shall apply to the combination of
-the Contribution and the Program if, at the time the Contribution is added
-by the Contributor, such addition of the Contribution causes such
-combination to be covered by the Licensed Patents. The patent license
-shall not apply to any other combinations which include the Contribution.
-No hardware per se is licensed hereunder.
-
-c) Recipient understands that although each Contributor grants the
-licenses to its Contributions set forth herein, no assurances are provided
-by any Contributor that the Program does not infringe the patent or other
-intellectual property rights of any other entity. Each Contributor
-disclaims any liability to Recipient for claims brought by any other
-entity based on infringement of intellectual property rights or otherwise.
-As a condition to exercising the rights and licenses granted hereunder,
-each Recipient hereby assumes sole responsibility to secure any other
-intellectual property rights needed, if any. For example, if a third party
-patent license is required to allow Recipient to distribute the Program,
-it is Recipient's responsibility to acquire that license before
-distributing the Program.
-
-d) Each Contributor represents that to its knowledge it has sufficient
-copyright rights in its Contribution, if any, to grant the copyright
-license set forth in this Agreement.
-
-3. REQUIREMENTS
-
-A Contributor may choose to distribute the Program in object code form
-under its own license agreement, provided that:
-
-a) it complies with the terms and conditions of this Agreement; and
-
-b) its license agreement:
-
-i) effectively disclaims on behalf of all Contributors all warranties and
-conditions, express and implied, including warranties or conditions of
-title and non-infringement, and implied warranties or conditions of
-merchantability and fitness for a particular purpose;
-
-ii) effectively excludes on behalf of all Contributors all liability for
-damages, including direct, indirect, special, incidental and consequential
-damages, such as lost profits;
-
-iii) states that any provisions which differ from this Agreement are
-offered by that Contributor alone and not by any other party; and
-
-iv) states that source code for the Program is available from such
-Contributor, and informs licensees how to obtain it in a reasonable manner
-on or through a medium customarily used for software exchange.
-
-When the Program is made available in source code form:
-
-a) it must be made available under this Agreement; and
-
-b) a copy of this Agreement must be included with each copy of the
-Program.
-
-Contributors may not remove or alter any copyright notices contained
-within the Program.
-
-Each Contributor must identify itself as the originator of its
-Contribution, if any, in a manner that reasonably allows subsequent
-Recipients to identify the originator of the Contribution.
-
-4. COMMERCIAL DISTRIBUTION
-
-Commercial distributors of software may accept certain responsibilities
-with respect to end users, business partners and the like. While this
-license is intended to facilitate the commercial use of the Program, the
-Contributor who includes the Program in a commercial product offering
-should do so in a manner which does not create potential liability for
-other Contributors. Therefore, if a Contributor includes the Program in a
-commercial product offering, such Contributor ("Commercial Contributor")
-hereby agrees to defend and indemnify every other Contributor
-("Indemnified Contributor") against any losses, damages and costs
-(collectively "Losses") arising from claims, lawsuits and other legal
-actions brought by a third party against the Indemnified Contributor to
-the extent caused by the acts or omissions of such Commercial Contributor
-in connection with its distribution of the Program in a commercial product
-offering. The obligations in this section do not apply to any claims or
-Losses relating to any actual or alleged intellectual property
-infringement. In order to qualify, an Indemnified Contributor must: a)
-promptly notify the Commercial Contributor in writing of such claim, and
-b) allow the Commercial Contributor to control, and cooperate with the
-Commercial Contributor in, the defense and any related settlement
-negotiations. The Indemnified Contributor may participate in any such
-claim at its own expense.
-
-For example, a Contributor might include the Program in a commercial
-product offering, Product X. That Contributor is then a Commercial
-Contributor. If that Commercial Contributor then makes performance claims,
-or offers warranties related to Product X, those performance claims and
-warranties are such Commercial Contributor's responsibility alone. Under
-this section, the Commercial Contributor would have to defend claims
-against the other Contributors related to those performance claims and
-warranties, and if a court requires any other Contributor to pay any
-damages as a result, the Commercial Contributor must pay those damages.
-
-5. NO WARRANTY
-
-EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE PROGRAM IS PROVIDED
-ON AN "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EITHER
-EXPRESS OR IMPLIED INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OR
-CONDITIONS OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY OR FITNESS FOR A
-PARTICULAR PURPOSE. Each Recipient is solely responsible for determining
-the appropriateness of using and distributing the Program and assumes all
-risks associated with its exercise of rights under this Agreement ,
-including but not limited to the risks and costs of program errors,
-compliance with applicable laws, damage to or loss of data, programs or
-equipment, and unavailability or interruption of operations.
-
-6. DISCLAIMER OF LIABILITY
-
-EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, NEITHER RECIPIENT NOR ANY
-CONTRIBUTORS SHALL HAVE ANY LIABILITY FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING
-WITHOUT LIMITATION LOST PROFITS), HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OR DISTRIBUTION
-OF THE PROGRAM OR THE EXERCISE OF ANY RIGHTS GRANTED HEREUNDER, EVEN IF
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-
-7. GENERAL
-
-If any provision of this Agreement is invalid or unenforceable under
-applicable law, it shall not affect the validity or enforceability of the
-remainder of the terms of this Agreement, and without further action by
-the parties hereto, such provision shall be reformed to the minimum extent
-necessary to make such provision valid and enforceable.
-
-If Recipient institutes patent litigation against any entity (including a
-cross-claim or counterclaim in a lawsuit) alleging that the Program itself
-(excluding combinations of the Program with other software or hardware)
-infringes such Recipient's patent(s), then such Recipient's rights granted
-under Section 2(b) shall terminate as of the date such litigation is
-filed.
-
-All Recipient's rights under this Agreement shall terminate if it fails to
-comply with any of the material terms or conditions of this Agreement and
-does not cure such failure in a reasonable period of time after becoming
-aware of such noncompliance. If all Recipient's rights under this
-Agreement terminate, Recipient agrees to cease use and distribution of the
-Program as soon as reasonably practicable. However, Recipient's
-obligations under this Agreement and any licenses granted by Recipient
-relating to the Program shall continue and survive.
-
-Everyone is permitted to copy and distribute copies of this Agreement, but
-in order to avoid inconsistency the Agreement is copyrighted and may only
-be modified in the following manner. The Agreement Steward reserves the
-right to publish new versions (including revisions) of this Agreement from
-time to time. No one other than the Agreement Steward has the right to
-modify this Agreement. The Eclipse Foundation is the initial Agreement
-Steward. The Eclipse Foundation may assign the responsibility to serve as
-the Agreement Steward to a suitable separate entity. Each new version of
-the Agreement will be given a distinguishing version number. The Program
-(including Contributions) may always be distributed subject to the version
-of the Agreement under which it was received. In addition, after a new
-version of the Agreement is published, Contributor may elect to distribute
-the Program (including its Contributions) under the new version. Except as
-expressly stated in Sections 2(a) and 2(b) above, Recipient receives no
-rights or licenses to the intellectual property of any Contributor under
-this Agreement, whether expressly, by implication, estoppel or otherwise.
-All rights in the Program not expressly granted under this Agreement are
-reserved.
-
-This Agreement is governed by the laws of the State of New York and the
-intellectual property laws of the United States of America. No party to
-this Agreement will bring a legal action under this Agreement more than
-one year after the cause of action arose. Each party waives its rights to
-a jury trial in any resulting litigation.
-
-"""
-
-SOLVERS = [ "Cbc", "Clp", "Cpx", "Dylp", "Fmp", "Glpk", "Grb", "Msk",
-            "Osl", "Spx", "Sym", "Vol", "Xpr"]
-
-config = ConfigParser.RawConfigParser()
-config.read("build.conf")
-
-# If we just want to build the egg with the embedded libraries, we
-# override the config
-if config.get("Global", "use_prebuilt_osi") == "true":
-    # We use a special __init__.py yaposib that preloads the necessary
-    # embedded libs.
-    shutil.copy(
-            os.path.join("yaposib", "init_preload"),
-            os.path.join("yaposib", "__init__.py")
+def yaposib_extension():
+    """Returns yaposib extension properly configured"""
+    config = ConfigParser.RawConfigParser()
+    config.read("build.conf")
+    if config.get("Global", "use_prebuilt_osi") == "true":
+        print("Building yaposib against a prebuilt OSI.")
+        print("Modify build.conf if you want to use your own build.")
+        download_prebuilt_osi()
+        shutil.copy(
+                os.path.join("yaposib", "init_preload"),
+                os.path.join("yaposib", "__init__.py")
+                )
+    else:
+        print("Building yaposib against your local OSI build.")
+        shutil.copy(
+                os.path.join("yaposib", "init_normal"),
+                os.path.join("yaposib", "__init__.py")
+                )
+    embedded_solvers = [ solver for solver in
+            [ "Cbc", "Clp", "Cpx", "Dylp", "Fmp", "Glpk", "Grb", "Msk",
+                "Osl", "Spx", "Sym", "Vol", "Xpr"]
+            if config.get(solver, "enabled") == "true" ]
+    solver_libs = []
+    for solver in embedded_solvers:
+        solver_libs += config.get(solver, "libraries").split(" ")
+    return Extension("yaposib._yaposib",
+            define_macros = [(solver, None) for solver in embedded_solvers if
+                config.get(solver, "libraries")] + [("PY_FORMAT_LONG_LONG",
+                    "I64")], # python2.7 wants PY_FORMAT_LONG_LONG to be defined
+            sources = [
+                "yaposib/CArrays.cpp",
+                "yaposib/Col.cpp",
+                "yaposib/Row.cpp",
+                "yaposib/Obj.cpp",
+                "yaposib/Problem.cpp",
+                "yaposib/Binding.cpp"
+                ],
+            include_dirs =
+                  [ config.get("OSI",    "include_dir"),
+                    config.get("python", "include_dir"),
+                    config.get("boost",  "include_dir") ]
+                + [ config.get(solver,   "include_dir")
+                    for solver in embedded_solvers ],
+            library_dirs =
+                  [ config.get("OSI",    "library_dir"),
+                    config.get("python", "library_dir"),
+                    config.get("boost",  "library_dir") ]
+                + [ config.get(solver,   "library_dir")
+                    for solver in embedded_solvers ],
+            libraries =
+                  config.get("OSI",    "libraries").split(" ")
+                + config.get("boost",  "libraries").split(" ")
+                + config.get("python", "libraries").split(" ")
+                + solver_libs
+                + [ "Osi" + solver for solver in embedded_solvers ],
+            language = 'c++'
             )
-    # We read the right build config
-    if platform.system() == "Linux":
-        if platform.uname()[4] == "x86_64":
-            config.read("build_x86_64.conf")
-        else:
-            config.read("build_i686.conf")
-else:
-    # We use a normal __init__.py
-    shutil.copy(
-            os.path.join("yaposib", "init_normal"),
-            os.path.join("yaposib", "__init__.py")
-            )
-
-embedded_solvers = [ solver for solver in SOLVERS
-        if config.get(solver, "enabled") == "true" ]
-
-# libraries we compile yaposib for
-solver_libs = []
-for solver in embedded_solvers:
-    solver_libs += config.get(solver, "libraries").split(" ")
-
-yaposib_shared_lib = Extension("_yaposib",
-        define_macros = [(solver, None) for solver in embedded_solvers if
-            config.get(solver, "libraries")] + [("PY_FORMAT_LONG_LONG",
-                "I64")], # python2.7 wants PY_FORMAT_LONG_LONG to be defined
-        sources = [
-            "cpp/CArrays.cpp",
-            "cpp/Col.cpp",
-            "cpp/Row.cpp",
-            "cpp/Obj.cpp",
-            "cpp/Problem.cpp",
-            "cpp/Binding.cpp"
-            ],
-        include_dirs =
-              [ config.get("OSI",    "include_dir"),
-                config.get("python", "include_dir"),
-                config.get("boost",  "include_dir") ]
-            + [ config.get(solver,   "include_dir")
-                for solver in embedded_solvers ],
-        library_dirs =
-              [ config.get("OSI",    "library_dir"),
-                config.get("python", "library_dir"),
-                config.get("boost",  "library_dir") ]
-            + [ config.get(solver,   "library_dir")
-                for solver in embedded_solvers ],
-        libraries =
-              config.get("OSI",    "libraries").split(" ")
-            + config.get("boost",  "libraries").split(" ")
-            + config.get("python", "libraries").split(" ")
-            + solver_libs
-            + [ "Osi" + solver for solver in embedded_solvers ],
-        language = 'c++'
-        )
-
-package_data = [ "embedded_libs/i686/*",
-        "embedded_libs/x86_64/*" ]
 
 setup(name="yaposib",
-      version="0.2.6",
-      description="""
-      Yaposib is a python binding to OSI, the Open Solver Interface from
-      COIN-OR. It intends to give access to various solvers through
-      python. Yaposib was created in order to be integrated in pulp-or
-      (http://code.google.com/p/pulp-or).
-      """,
-      long_description = Description,
-      license = License,
-      keywords = ["Optimization", "Linear Programming",
-          "Operations Research"],
+      version="0.2.7",
+      description= __doc__,
+      long_description = open("README").read(),
+      license = open("COPYING").read(),
+      keywords = ["Optimization", "Linear Programming", "Operations Research"],
       author="Christophe-Marie Duquesne",
       author_email="chm.duquesne@gmail.com",
       url="https://code.google.code/p/yaposib/",
@@ -344,8 +118,8 @@ setup(name="yaposib",
                      "Topic :: Scientific/Engineering :: Mathematics",
       ],
       packages = find_packages(),
-      ext_modules = [ yaposib_shared_lib ],
-      test_suite = "yaposib.test_suite",
-      eager_resources = package_data,
-      package_data = { "" : package_data }
+      ext_modules = [ yaposib_extension() ],
+      test_suite = "yaposib.test",
+      eager_resources = [ "lib/*" ],
+      package_data = { "" : [ "lib/*" ] }
       )
