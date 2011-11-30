@@ -121,5 +121,9 @@ setup(name="yaposib",
       ext_modules = [ yaposib_extension() ],
       test_suite = "yaposib.test",
       eager_resources = [ "lib/*" ],
-      package_data = { "" : [ "lib/*" ] }
+      package_data = { "" : [ "lib/*" ] },
+      entry_points = ("""
+      [console_scripts]
+      yaposib = yaposib.test.test_yaposib:main
+          """)
       )

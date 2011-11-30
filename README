@@ -24,8 +24,12 @@ To build and install this package, please look at the INSTALL file.
 
 TESTING
 =======
-    >>> import yaposib
-    >>> yaposib.test()
+from python:
+    >>> from yaposib.test.test_yaposib import main as test
+    >>> test()
+
+you can also run the executable that comes installed in the package
+    $ yaposib
 
 USING
 =====

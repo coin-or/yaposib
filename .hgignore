@@ -2,6 +2,9 @@ syntax: glob
 *.o
 *.so
 *.pyc
+*.zip
+include
+yaposib/lib
 build
 dist
 yaposib.egg-info
