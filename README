@@ -20,7 +20,10 @@ yaposib depends on
 
 INSTALLATION
 ============
-To build and install this package, please look at the INSTALL file.
+To build and install this package, just use pip or easy_install. You need
+gcc and boost::python.
+
+Advanced configuration is possible: see the INSTALL file for that.
 
 TESTING
 =======
@@ -38,9 +41,9 @@ Look at the file QuickRefManual
 
 ADDING TESTS
 ============
-Tests can easily be added in src/yaposib.py
-Just add a test function and get this test function called by the main
-test.
+Yaposib uses the unittest package. Adding tests is encouraged: To do so,
+edit the file yaposib/test/test_yaposib.py. Anything bug filed on the
+bugtracker should result (if possible) in a new test.
 
 REPORTING BUGS
 ==============

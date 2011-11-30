@@ -1,22 +1,10 @@
-Installing the default egg that only supports Clp
-=================================================
-
-For linux users, a python egg is provided. However, it only has support for Clp and cannot invoke other solvers.
-
-  * Install python-setuptools
-  * [http://code.google.com/p/yaposib/downloads/detail?name=yaposib-0.1-py2.6-linux-i686.egg Download] it
-  * As root: `easy_install yaposib-0.1-py2.6-linux-i686.egg`.
-
-You can then test it in the python interpreter:
->>> import yaposib
->>> yaposib.test()
-
-The egg embeds all the necessary shared libraries so that you don't have to bother about compiling and installing them.
-
 Building an egg with support for other solvers
 ==============================================
 
-In order to profit from yaposib full capabilities, you need to recompile it for yourself. Work should be done in the future in order to avoid this step, but this mostly depends on OSI and the way its packaging will evolve.
+In order to profit from yaposib full capabilities, you need to recompile
+it for yourself. Work should be done in the future in order to avoid this
+step, but this mostly depends on OSI and the way its packaging will
+evolve.
 
 Dependencies
 ============
@@ -41,3 +29,9 @@ On MS Windows
 =============
 
 Untested, help wanted.
+
+Troubleshooting
+===============
+
+Please post your problems on the mailing list:
+https://groups.google.com/forum/#!forum/yaposib
