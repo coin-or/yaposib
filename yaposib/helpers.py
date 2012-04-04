@@ -5,7 +5,7 @@ class YaposibVectorError(exceptions.Exception):
     def __init__(self):
         return
     def __str__(self):
-        print "Error inserting element in vector. Twice the same index?"
+        print("Error inserting element in vector. Twice the same index?")
 
 def vec(listOfPairs):
     vec = _yaposib.CoinPackedVector()

@@ -1,3 +1,4 @@
+#!env python
 import unittest
 import yaposib
 
@@ -17,39 +18,39 @@ def yaposibTestCheck(prob, okstatus, sol = {},
         if abs(prob.obj.value - obj) > eps:
             prob.writeLp(prob.obj.name)
             error_msg += "\tobj == %s != %s" % (prob.obj.value, obj)
-            raise yaposib.YaposibError, error_msg
+            raise yaposib.YaposibError(error_msg)
     if status not in okstatus:
         prob.writeLp(prob.obj.name)
         error_msg += "\tstatus == %s not in %s" % (status, okstatus)
-        raise yaposib.YaposibError, error_msg
+        raise yaposib.YaposibError(error_msg)
     if sol:
         for i in range(len(prob.cols)):
             if abs(prob.cols[i].solution - sol[i]) > eps:
                 prob.writeLp(prob.obj.name)
                 error_msg += "\t%s == %s != %s" % (
                         prob.cols[i].name, prob.cols[i].solution, sol[i])
-                raise yaposib.YaposibError, error_msg
+                raise yaposib.YaposibError(error_msg)
     if reducedcosts:
         for i in range(len(prob.cols)):
             if abs(prob.cols[i].reducedcost - reducedcosts[i]) > eps:
                 prob.writeLp(prob.obj.name)
                 error_msg += "\t%s.reducedcost == %s != %s" %(
                         prob.cols[i].name, prob.cols[i].reducedcost, reducedcost[i])
-                raise yaposib.YaposibError, error_msg
+                raise yaposib.YaposibError(error_msg)
     if duals:
         for i in range(len(prob.rows)):
             if abs(prob.rows[i].dual - duals[i]) > eps:
                 prob.writeLp(prob.obj.name)
                 error_msg += "\t%s.dual == %s != %s" %(
                         prob.rows[i].name, prob.rows[i].dual, duals[i])
-                raise yaposib.YaposibError, error_msg
+                raise yaposib.YaposibError(error_msg)
     if slacks:
         for i in range(len(prob.rows)):
             if abs(prob.rows[i].activity - slacks[i]) > eps:
                 prob.writeLp(prob.obj.name)
                 error_msg += "\t%s.activity == %s != %s" %(
                         prob.rows[i].name, prob.rows[i].activity, slacks[i])
-                raise yaposib.YaposibError, error_msg
+                raise yaposib.YaposibError(error_msg)
 
 def continuous(solver):
     """
