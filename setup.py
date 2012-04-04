@@ -6,21 +6,33 @@ python. Yaposib was created in order to be integrated in pulp-or
 (http://code.google.com/p/pulp-or).
 """
 from __future__ import with_statement
-from setuptools import setup, Extension, find_packages
-import ConfigParser
+from distutils.core import setup, Extension
+
+try:
+    import ConfigParser as configparser
+except:
+    import configparser
 import platform
 import os
 import os.path
 import shutil
-import urllib2
+import urllib
 import hashlib
+from functools import partial
 from zipfile import ZipFile
+
+def sha1_hash(filename):
+    with open(filename, mode='rb') as f:
+        d = hashlib.sha1()
+        for buf in iter(partial(f.read, 128), b''):
+            d.update(buf)
+    return d.hexdigest()
 
 def security_check(filename):
     known_hashes = ('a780bb709516a6fcc7abb05e719ed2a4d94d3bae',
             '54dbe692f5b23f834eb2f74dcf5c3a9927c566be',
             'f5de697e85134c42e5da00405827f7ebadadccd7')
-    assert hashlib.sha1(open(filename).read()).hexdigest() in known_hashes
+    assert sha1_hash(filename) in known_hashes
 
 def download_prebuilt_osi():
     """Downloads and extracts a prebuilt OSI"""
@@ -33,11 +45,11 @@ def download_prebuilt_osi():
             else:
                 url = 'http://yaposib.googlecode.com/files/osi_i686.zip'
         with open(lib, "wb") as f:
-            f.write(urllib2.urlopen(url).read())
+            f.write(urllib.urlopen(url).read())
     if not os.path.exists(include): # don't re-download if already there
         url = 'http://yaposib.googlecode.com/files/osi_headers.zip'
         with open(include, "wb") as f:
-            f.write(urllib2.urlopen(url).read())
+            f.write(urllib.urlopen(url).read())
     security_check(lib)
     security_check(include)
     ZipFile(lib, mode="r").extractall("yaposib/lib")
@@ -45,7 +57,7 @@ def download_prebuilt_osi():
 
 def yaposib_extension():
     """Returns yaposib extension properly configured"""
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
     config.read("build.conf")
     if config.get("Global", "use_prebuilt_osi") == "true":
         print("Building yaposib against a prebuilt OSI.")
@@ -102,7 +114,7 @@ def yaposib_extension():
             )
 
 setup(name="yaposib",
-      version="0.2.75",
+      version="0.2.76",
       description= __doc__,
       long_description = open("README").read(),
       license = open("COPYING").read(),
@@ -117,13 +129,8 @@ setup(name="yaposib",
                      "Natural Language :: English",
                      "Topic :: Scientific/Engineering :: Mathematics",
       ],
-      packages = find_packages(),
+      packages = ['yaposib', 'yaposib.test'] ,
       ext_modules = [ yaposib_extension() ],
-      test_suite = "yaposib.test",
-      eager_resources = [ "lib/*" ],
       package_data = { "" : [ "lib/*" ] },
-      entry_points = ("""
-      [console_scripts]
-      yaposib = yaposib.test.test_yaposib:main
-          """)
+      scripts = [ "yaposib/test/test_yaposib.py" ]
       )
