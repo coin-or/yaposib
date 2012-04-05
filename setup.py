@@ -10,50 +10,64 @@ from distutils.core import setup, Extension
 
 try:
     import ConfigParser as configparser
-except:
+except ImportError:
     import configparser
 import platform
 import os
 import os.path
 import shutil
-import urllib
+try:
+    from urllib import urlopen
+except ImportError:
+    from urllib.request import urlopen
 import hashlib
 from functools import partial
 from zipfile import ZipFile
 
-def sha1_hash(filename):
-    with open(filename, mode='rb') as f:
+def sha1_hash(path):
+    """Returns the sha1 hash of the input file (works for python2/3)"""
+    with open(path, mode='rb') as f:
         d = hashlib.sha1()
         for buf in iter(partial(f.read, 128), b''):
             d.update(buf)
     return d.hexdigest()
 
-def security_check(filename):
-    known_hashes = ('a780bb709516a6fcc7abb05e719ed2a4d94d3bae',
-            '54dbe692f5b23f834eb2f74dcf5c3a9927c566be',
-            'f5de697e85134c42e5da00405827f7ebadadccd7')
-    assert sha1_hash(filename) in known_hashes
+def download(url, path, sha1_sum):
+    """downloads url to file, checking it for sha1_sum (works for python2/3)"""
+    if os.path.exists(path):
+        print("%s already on the system, skipping download." % path)
+    else:
+        print("Downloading %s to %s" % (url, path))
+        remote = urlopen(url)
+        with open(path, 'wb') as local:
+            local.write(remote.read())
+        remote.close()
+        if sha1_sum:
+            print("Checking %s for the given sha1_sum %s" % (path, sha1_sum))
+            assert sha1_hash(path) == sha1_sum
 
 def download_prebuilt_osi():
     """Downloads and extracts a prebuilt OSI"""
-    print("Downloading and extracting a prebuilt Osi, this may take time...")
-    lib, include = "lib.zip", "include.zip"
-    if not os.path.exists(lib): # don't re-download if already there
-        if platform.system() == "Linux":
-            if platform.uname()[4] == "x86_64":
-                url = 'http://yaposib.googlecode.com/files/osi_x86_64.zip'
-            else:
-                url = 'http://yaposib.googlecode.com/files/osi_i686.zip'
-        with open(lib, "wb") as f:
-            f.write(urllib.urlopen(url).read())
-    if not os.path.exists(include): # don't re-download if already there
-        url = 'http://yaposib.googlecode.com/files/osi_headers.zip'
-        with open(include, "wb") as f:
-            f.write(urllib.urlopen(url).read())
-    security_check(lib)
-    security_check(include)
-    ZipFile(lib, mode="r").extractall("yaposib/lib")
-    ZipFile(include, mode="r").extractall()
+    # download the binary libs
+    if platform.system() == "Linux":
+        if platform.uname()[4] == "x86_64":
+            download(
+                    'http://yaposib.googlecode.com/files/osi_x86_64.zip',
+                    'lib.zip',
+                    '54dbe692f5b23f834eb2f74dcf5c3a9927c566be')
+        else:
+            download(
+                    'http://yaposib.googlecode.com/files/osi_i686.zip',
+                    'lib.zip',
+                    'f5de697e85134c42e5da00405827f7ebadadccd7')
+    # download the headers
+    download(
+            'http://yaposib.googlecode.com/files/osi_headers.zip',
+            'include.zip',
+            'a780bb709516a6fcc7abb05e719ed2a4d94d3bae')
+    # unzip
+    ZipFile('lib.zip', mode="r").extractall("yaposib/lib")
+    ZipFile('include.zip', mode="r").extractall()
 
 def yaposib_extension():
     """Returns yaposib extension properly configured"""
