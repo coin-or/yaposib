@@ -11,7 +11,7 @@ COIN-OR. It intends to give access to various solvers through python.
 Yaposib was created to be integrated with pulp-or, and plays nicely with
 it.
 
-Mailing list: https://groups.google.com/group/yaposib/topics
+The code is hosted on https://github.com/chmduquesne/yaposib.
 
 .. toctree::
     :maxdepth: 2

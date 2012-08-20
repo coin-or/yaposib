@@ -9,7 +9,9 @@ Yaposib was created in order to be integrated in pulp-or
 YAPOSIB PROJECT PAGE
 ====================
 
-yaposib is hosted on https://code.google.com/p/yaposib
+The official project page has to move to coin-or.
+The documentation can be built with sphinx from the source. For your
+convenience, it is also hosted on http://yaposib.readthedocs.org
 
 DEPENDENCIES
 ============
@@ -45,6 +47,6 @@ Yaposib uses the unittest package. Adding tests is encouraged: To do so,
 edit the file yaposib/test/test_yaposib.py. Anything bug filed on the
 bugtracker should result (if possible) in a new test.
 
-REPORTING BUGS
-==============
-Please use the bugtracker on http://code.google.com/p/yaposib/issues/list
+BUGS
+====
+Mail them to chmd@chmd.fr
