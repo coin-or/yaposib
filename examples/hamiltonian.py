@@ -13,7 +13,7 @@ def hamiltonian(edges):
 
     print node2colnums
 
-    lp = yaposib.Problem("Clp")              # A new empty linear program
+    lp = yaposib.Problem(yaposib.available_solvers()[0])              # A new empty linear program
     for i in range(len(edges)):
         col = lp.cols.add(yaposib.vec([]))  # A struct var for each edge
         col.integer = True                  # Make integer, not continuous
@@ -70,7 +70,7 @@ def tsp(edges):
         node2colnums.setdefault(n1, []).append(colnum)
         node2colnums.setdefault(n2, []).append(colnum)
 
-    lp = yaposib.Problem("Clp")              # A new empty linear program
+    lp = yaposib.Problem(yaposib.available_solvers()[0])              # A new empty linear program
     for i in range(len(edges)):
         col = lp.cols.add(yaposib.vec([]))  # A struct var for each edge
         col.integer = True                  # Make binary, not continuous

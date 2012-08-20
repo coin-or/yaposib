@@ -1,0 +1,6 @@
+#!env python
+
+from yaposib.test.test_yaposib import main
+
+if __name__ == "__main__":
+    main()

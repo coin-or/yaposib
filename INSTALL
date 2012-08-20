@@ -1,10 +1,5 @@
-Building an egg with support for other solvers
-==============================================
-
-In order to profit from yaposib full capabilities, you need to recompile
-it for yourself. Work should be done in the future in order to avoid this
-step, but this mostly depends on OSI and the way its packaging will
-evolve.
+Building yaposib
+================
 
 Dependencies
 ============
@@ -22,7 +17,7 @@ On GNU Linux
 
   * Install the dependencies
   * Modify the file build.conf according to your OSI installation
-  * Run 'python setup.py bdist_egg'
+  * Run 'python setup.py install'
   * Install the egg generated in dist/ with easy_install
 
 On MS Windows

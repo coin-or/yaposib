@@ -16,7 +16,7 @@ if __name__ == "__main__":
     c3: -y+z == 7
     c4: w >= 0
     """
-    prob = yaposib.Problem("Clp")
+    prob = yaposib.Problem(yaposib.available_solvers()[0])
 
     prob.obj.name = "MyProblem"
     prob.obj.maximize = False

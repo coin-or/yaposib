@@ -1,0 +1,11 @@
+O.3.0:
+	This version assumes you have installed OSI by yourself.
+	It will detect it (along with python) through pkg-config. Where
+	boost-python lives is currently hardcoded, automatic detection will be
+	added in next versions.
+
+	Users should install and configure OSI as recommended by the OSI
+	project page, or through their distribution. Note that if they follow
+	OSI recommendations, they will have to modify their environment
+	variable PKG_CONFIG_PATH for yaposib to find OSI at compile time. They
+	will also probably be required to change LD_LIBRARY_PATH at runtime.

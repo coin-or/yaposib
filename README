@@ -32,7 +32,7 @@ from python:
     >>> test()
 
 you can also run the executable that comes installed in the package
-    $ yaposib
+    $ yaposib-config
 
 USING
 =====

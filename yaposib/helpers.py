@@ -1,11 +1,11 @@
 import _yaposib
 import exceptions
 
-class YaposibVectorError(exceptions.Exception):
-    def __init__(self):
-        return
+class YaposibError(exceptions.Exception):
+    def __init__(self, error_str = ""):
+        self.error_str = error_str
     def __str__(self):
-        print("Error inserting element in vector. Twice the same index?")
+        return self.error_str
 
 def vec(listOfPairs):
     vec = _yaposib.CoinPackedVector()
@@ -13,7 +13,7 @@ def vec(listOfPairs):
         try:
             vec.insert(pair[0], pair[1])
         except:
-            raise YaposibVectorError
+            raise YaposibError("Error inserting element in vector. Twice the same index?")
     return vec
 
 def available_solvers():

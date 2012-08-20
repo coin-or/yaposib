@@ -12,7 +12,7 @@ def maxflow(capgraph, s, t):
         if nto!=s and nto!=t:
             node2rnum.setdefault(nto, len(node2rnum))
 
-    lp = yaposib.Problem("Clp")         # Empty LP instance.
+    lp = yaposib.Problem(yaposib.available_solvers()[0])         # Empty LP instance.
     for i in range(len(capgraph)):
         lp.cols.add(yaposib.vec([])) # As many columns cap-graph edges.
 

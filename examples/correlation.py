@@ -21,7 +21,7 @@ def gen_random(items, rgen = random):
 
 def correlation_clustering(similarity):
     """Linear program relaxation of correlation clustering."""
-    lp = yaposib.Problem("Clp")                   # Define the linear program.
+    lp = yaposib.Problem(yaposib.available_solvers()[0])                   # Define the linear program.
     items = len(similarity)                  # Get the number of items.
     lp.obj.maximize = True                   # Set as maximization.
     for i in range((items*(items-1))/2):
@@ -52,7 +52,7 @@ def correlation_clustering(similarity):
 
 def halfint_correlation_clustering(similarity):
     """Wacky MIP-based half-int constrained correlation clustering."""
-    lp = yaposib.Problem("Clp")                   # Define the linear program.
+    lp = yaposib.Problem(yaposib.available_solvers()[0])                   # Define the linear program.
     items = len(similarity)                  # Get the number of items.
     lp.obj.maximize = True                   # Set as maximization.
     for i in range((items*(items-1))/2):

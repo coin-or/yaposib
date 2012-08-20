@@ -7,7 +7,7 @@ import yaposib
 def solve_sat(expression):
     if len(expression)==0: return [] # Trivial case.  Otherwise count vars.
     numvars = max([max([abs(v) for v in clause]) for clause in expression])
-    lp = yaposib.Problem("Clp")           # Construct an empty linear program.
+    lp = yaposib.Problem(yaposib.available_solvers()[0])           # Construct an empty linear program.
     for i in range(2*numvars):
         col = lp.cols.add(yaposib.vec([])) # As many columns as there are literals.
         col.lowerbound = 0.0         # Literal must be between false and true.

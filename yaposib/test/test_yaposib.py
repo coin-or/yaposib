@@ -622,7 +622,7 @@ class TestYaposib(unittest.TestCase):
         lpfile = ["\Problem name: ",
         "",
         "Minimize",
-        "OBJROW: x + 4 y + 9 z",
+        "continuous: x + 4 y + 9 z",
         "Subject To",
         "c1:  x + y <= 5",
         "c2:  x + z >= 10",
@@ -637,7 +637,9 @@ class TestYaposib(unittest.TestCase):
             prob.writeLp("debug")
             with open("debug.lp", "r") as f:
                 for line, ref in zip(f, lpfile):
-                    assert line.strip() == ref.strip()
+                    if line.strip() != ref.strip():
+                        error_msg = "\t%s != %s" % (line.strip(), ref.strip())
+                        raise yaposib.YaposibError(error_msg)
 
     def test_maxNumIterations(self):
         pass
@@ -673,7 +675,7 @@ class TestYaposib(unittest.TestCase):
     def test_isProvenPrimalInfeasible(self):
         for solver in yaposib.available_solvers():
             prob = infeasible(solver)
-            yaposibTestCheck(prob, ["limitreached"])
+            yaposibTestCheck(prob, ["infeasible", "limitreached"])
             if (not prob.isProvenPrimalInfeasible):
                 raise yaposib.YaposibError
 
@@ -690,7 +692,7 @@ class TestYaposib(unittest.TestCase):
     def test_isDualObjectiveLimitReached(self):
         for solver in yaposib.available_solvers():
             prob = infeasible(solver)
-            yaposibTestCheck(prob, ["limitreached"])
+            yaposibTestCheck(prob, ["infeasible", "limitreached"])
             if (not prob.isDualObjectiveLimitReached):
                 raise yaposib.YaposibError
 
@@ -734,12 +736,12 @@ class TestYaposib(unittest.TestCase):
     def test_infeasible(self):
         for solver in yaposib.available_solvers():
             prob = infeasible(solver)
-            yaposibTestCheck(prob, ["limitreached"])
+            yaposibTestCheck(prob, ["infeasible", "limitreached"])
 
     def test_integer_infeasible(self):
         for solver in yaposib.available_solvers():
             prob = integer_infeasible(solver)
-            yaposibTestCheck(prob, ["limitreached"], solve_as_MIP = True)
+            yaposibTestCheck(prob, ["infeasible", "limitreached"], solve_as_MIP = True)
             #yaposibTestCheck(prob, ["optimal"], solve_as_MIP = False)
 
     def test_duals_and_slacks(self):
@@ -753,6 +755,3 @@ class TestYaposib(unittest.TestCase):
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestYaposib)
     unittest.TextTestRunner(verbosity=2).run(suite)
-
-if __name__ == '__main__':
-    main()
