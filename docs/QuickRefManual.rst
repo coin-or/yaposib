@@ -1,15 +1,15 @@
-Yaposib reference API
-=====================
+Reference API
+=============
 
 Problem
-=======
+-------
 .. py:class:: Problem
 
 Models an LP problem
 
 
 Main methods
-------------
+````````````
 
 .. py:method:: Problem.markHotStart()
 
@@ -46,7 +46,7 @@ Write the problem in a file (lp format). The argument is appended the
 extension ".lp"
 
 Objective
----------
+`````````
 
 .. py:attribute:: Problem.obj
 
@@ -83,7 +83,7 @@ get the given coef with `Problem.obj[i]`
 set the given coef with `Problem.obj[i] = double`
 
 Rows
-----
+````
 
 .. py:attribute:: Problem.rows
 
@@ -150,7 +150,7 @@ RO Attribute (double)
 activity of the row
 
 Columns
--------
+```````
 
 .. py:attribute:: Problem.cols
 
@@ -223,7 +223,7 @@ RW Attribute (double)
 integer variable?
 
 Problem Tuning
---------------
+``````````````
 
 .. py:attribute:: Problem.maxNumIterations
 
@@ -352,7 +352,7 @@ RO attribute (bool)
 Iteration limit reached?
 
 Helper
-======
+------
 
 .. py:function:: vec([(0,0.1),(1,2.3)])
 

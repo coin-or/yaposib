@@ -11,15 +11,14 @@ COIN-OR. It intends to give access to various solvers through python.
 Yaposib was created to be integrated with pulp-or, and plays nicely with
 it.
 
-Contents:
+Mailing list: https://groups.google.com/group/yaposib/topics
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   QuickRefManual
-   FAQ
-
-
+    GettingStarted
+    QuickRefManual
+    FAQ
 
 
 Indices and tables
@@ -27,4 +26,3 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`search`
-
