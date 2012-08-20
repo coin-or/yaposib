@@ -77,7 +77,7 @@ def yaposib_extension():
             )
 
 setup(name="yaposib",
-      version="0.3.0",
+      version="0.3.1",
       description= __doc__,
       long_description = open("README").read(),
       license = open("COPYING").read(),
