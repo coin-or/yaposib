@@ -23,7 +23,7 @@ def yaposib_extension():
             "Clp": "osi-clp",
             "Cpx": "osi-cplex",
             "Dylp": "osi-dylp",
-            "Fmp": "osi-fmp",
+            "Fmp": "osi-fortmp",
             "Glpk": "osi-glpk",
             "Grb": "osi-gurobi",
             "Msk": "osi-mosek",
