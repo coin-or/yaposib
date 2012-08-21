@@ -16,8 +16,10 @@ I can't add colums/rows
 
 How efficiently does yaposib accesses to solvers memory?
     yaposib's design has been driven by memory access efficiency. It is
-    built on the top of the C++ `OsiSolverInterface` class of COIN-OSI.
+    built on the top of the C++ OsiSolverInterface_ class of COIN-OSI.
     You can thus manipulate and modify the rows/columns of the same
     problem as fast as you would be able to do it with OSI using the class
-    `OsiSolverInterface`.
+    OsiSolverInterface_.
+
+.. _OsiSolverInterface: https://projects.coin-or.org/Osi/browser/trunk/Osi/src/Osi/OsiSolverInterface.hpp
 

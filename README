@@ -9,7 +9,11 @@ Yaposib was created in order to be integrated in pulp-or
 YAPOSIB PROJECT PAGE
 ====================
 
-The official project page has to move to coin-or.
+The official project page has yet to move to coin-or.
+
+DOCUMENTATION
+=============
+
 The documentation can be built with sphinx from the source. For your
 convenience, it is also hosted on http://yaposib.readthedocs.org
 
@@ -25,21 +29,13 @@ INSTALLATION
 To build and install this package, just use pip or easy_install. You need
 gcc and boost::python.
 
-Advanced configuration is possible: see the INSTALL file for that.
+Advanced configuration is possible: see the documentation for that.
 
 TESTING
 =======
-from python:
-    >>> from yaposib.test.test_yaposib import main as test
-    >>> test()
 
-you can also run the executable that comes installed in the package
+Run the executable that comes installed in the package
     $ yaposib-config
-
-USING
-=====
-Look a the examples in examples/
-Look at the file QuickRefManual
 
 ADDING TESTS
 ============
@@ -49,4 +45,4 @@ bugtracker should result (if possible) in a new test.
 
 BUGS
 ====
-Mail them to chmd@chmd.fr
+Report them on http://code.google.com/p/yaposib/issues/list

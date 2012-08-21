@@ -2,5 +2,5 @@ Ultimate goals for yaposib:
 ==========================
 - Test suite ✔ (35 unit tests)
 - Code samples ✔ (see the examples directory)
-- Being available precompiled on every platforms OSI is available on
-    missing: windows, mac
+- Being available on the same platforms as OSI.
+    missing: windows

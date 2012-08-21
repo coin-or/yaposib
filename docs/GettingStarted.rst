@@ -1,11 +1,18 @@
 Getting Started
 ===============
 
+What follows is a guide for installing yaposib very quickly and solve your
+first linear program using it.
+
 Installing
 ----------
 
+Recommended method: pip
+```````````````````````
+
 1. Install pip, python-dev and boost::python. On ubuntu:
-   ::
+
+::
 
     sudo apt-get install python-pip python-dev libboost-python-dev
 
@@ -15,16 +22,53 @@ Installing
    your machine, you will have to recompile yaposib.
 
 3. Use pip to install yaposib:
-   ::
+
+::
 
     sudo pip install yaposib
 
-To check that the install went fine, you can run `yaposib-config`.
+Alternative: development version
+````````````````````````````````
+
+1. Follow 1. and 2. from the previous method
+
+2. Clone the repository
+
+::
+
+    git clone https://code.google.com/p/yaposib/
+
+3. Run setup.py
+
+::
+
+    cd yaposib
+    sudo python setup.py install
+
+Checking your installation
+--------------------------
+
+The utility `yaposib-config` is a helper script that helps you determine
+if your installation went fine. Run it without any argument.
+
+::
+
+    yaposib-config
+
+This tool runs the yaposib test suite on every solvers that you Osi build
+reportedly supports. Since not all solvers behave equivalently, some tests
+might fail with some solvers, and succeed with others. A failure does not
+necessarily means that yaposib is completely unusable with your solver, it
+might simply mean that it was not tested yet combined with your solver.
+Please report any failures on the bugtracker_.
+
+.. _bugtracker: https://code.google.com/p/yaposib/issues/list
 
 A quick code snippet
 --------------------
 
-Let's dive into the code. Here is how you solve a problem with yaposib:
+Let's dive into the code. Here is an example program that illustrates some
+features of yaposib:
 
 ::
 
@@ -89,4 +133,6 @@ Let's dive into the code. Here is how you solve a problem with yaposib:
     for col in prob.cols:
         print("%s=%s" % (col.name, col.solution))
 
-Other examples are available in the examples directory.
+Other examples are available in the examples_ directory.
+
+.. _examples: http://code.google.com/p/yaposib/source/browse/#git%2Fexamples

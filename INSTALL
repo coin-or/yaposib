@@ -1,32 +1,6 @@
 Building yaposib
 ================
 
-Dependencies
-============
+Please refer to the manual (directory docs/).
 
-yaposib depends on
-  * boost python (http://www.boost.org)
-  * coin-osi (https://projects.coin-or.org/Osi)
-You need to install both of them in order to compile it.
-
-Procedure
-=========
-
-On GNU Linux
-============
-
-  * Install the dependencies
-  * Modify the file build.conf according to your OSI installation
-  * Run 'python setup.py install'
-  * Install the egg generated in dist/ with easy_install
-
-On MS Windows
-=============
-
-Untested, help wanted.
-
-Troubleshooting
-===============
-
-Please post your problems on the mailing list:
-https://groups.google.com/forum/#!forum/yaposib
+The manual is also available online on http://yaposib.readthedocs.org
