@@ -235,9 +235,19 @@ class Problem
         // - isIterationLimitReached
         std::string getSolverStatus() const;
 
-        // write the problem in a file (lp format)
+        // read the problem from an lp file
+        int readLp(std::string filename);
+
+        // read the problem from an mps file
+        int readMps(std::string filename);
+
+        // write the problem in a lp file
         void writeLp(std::string filename) const;
-        void writeDefaultLp() const{this->writeLp("debug.lp");}
+        void writeDefaultLp() const{this->writeLp("debug");}
+
+        // write the problem in a mps file
+        void writeMps(std::string filename) const;
+        void writeDefaultMps() const{this->writeLp("debug");}
 
         //-------------------------------------------------------------//
         // TUNING

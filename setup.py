@@ -11,6 +11,7 @@ import subprocess
 import sys
 
 def pkgconfig(*packages, **kw):
+    """Finds a package using pkg-config"""
     flag_map = {'-I': 'include_dirs', '-L': 'library_dirs', '-l': 'libraries'}
     for token in subprocess.check_output("pkg-config --libs --cflags %s" % ' '.join(packages), shell=True).split():
         kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
@@ -77,7 +78,7 @@ def yaposib_extension():
             )
 
 setup(name="yaposib",
-      version="0.3.1",
+      version="0.3.2",
       description= __doc__,
       long_description = open("README").read(),
       license = open("COPYING").read(),
@@ -95,5 +96,5 @@ setup(name="yaposib",
       packages = ['yaposib', 'yaposib.test'] ,
       ext_modules = [ yaposib_extension() ],
       package_data = { "" : [ "lib/*" ] },
-      scripts = [ "scripts/yaposib-config" ]
+      scripts = [ "scripts/yaposib-config", "scripts/yaposib-solve" ]
       )

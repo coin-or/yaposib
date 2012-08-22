@@ -133,6 +133,42 @@ features of yaposib:
     for col in prob.cols:
         print("%s=%s" % (col.name, col.solution))
 
+It is also easy to write a generic command line solver in a few lines of
+code. The following script is part of the yaposib distribution and is
+shipped as the command line utility `yaposib-solve`
+
+::
+
+    import yaposib
+    import sys
+
+    def main():
+        """Extra simple command line mps solver"""
+
+        if len(sys.argv) <= 1:
+            print("Usage: yaposib-solve <file1.mps> [<file2.mps> ...]")
+            sys.exit(0)
+
+        solver = yaposib.available_solvers()[0]
+
+        for filename in sys.argv[1:]:
+
+            problem = yaposib.Problem(solver)
+
+            print("Will now solve %s" % filename)
+            err = problem.readMps(filename)
+            if not err:
+                problem.solve()
+                if problem.status == 'optimal':
+                    print("Optimal value: %f" % problem.obj.value)
+                    for var in problem.cols:
+                        print("\t%s = %f" % (var.name, var.solution))
+                else:
+                    print("No optimal solution could be found.")
+
+    if __name__ == "__main__":
+        main()
+
 Other examples are available in the examples_ directory.
 
 .. _examples: http://code.google.com/p/yaposib/source/browse/#git%2Fexamples

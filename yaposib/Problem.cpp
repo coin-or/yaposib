@@ -459,7 +459,7 @@ void Problem::setObjCoef(int index, double value)
 }
 
 //-------------------------------------------------------------//
-// _rows
+// ROWS
 //-------------------------------------------------------------//
 Rows Problem::getRows()
 {
@@ -816,8 +816,6 @@ Values Problem::getRowElements(int row)
         res.push_back((vector.getElements())[i]);
     }
     return res;
-    //Values res(vector.getNumElements(), vector.getElements());
-    return res;
 }
 
 Indices Problem::getColIndices(int col)
@@ -849,11 +847,25 @@ Values Problem::getColElements(int col)
     {
         res.push_back((vector.getElements())[i]);
     }
-    //Values res(vector.getNumElements(), vector.getElements());
     return res;
+}
+
+int Problem::readLp(std::string filename)
+{
+    return _solver->readLp(filename.data());
+}
+
+int Problem::readMps(std::string filename)
+{
+    return _solver->readMps(filename.data());
 }
 
 void Problem::writeLp(std::string filename) const
 {
     _solver->writeLp(filename.data());
+}
+
+void Problem::writeMps(std::string filename) const
+{
+    _solver->writeMps(filename.data());
 }

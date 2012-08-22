@@ -55,12 +55,28 @@ BOOST_PYTHON_MODULE(_yaposib)
                 "- isDualObjectiveLimitReached\n"
                 "- isIterationLimitReached\n"
                 )
+        .def("readLp",
+                &Problem::readLp,
+                "Read the problem from an lp file. Return the error count"
+                )
+        .def("readMps",
+                &Problem::readMps,
+                "Read the problem from an mps file. Return the error count."
+                )
         .def("writeLp",
                 &Problem::writeLp,
-                "Write the problem in a file (lp format). The argument is appended the extension '.lp'"
+                "Write the problem in a lp file. The argument is appended "
+                "the extension '.lp'"
                 )
         .def("writeLp",
                 &Problem::writeDefaultLp)
+        .def("writeMps",
+                &Problem::writeMps,
+                "Write the problem in a mps file. The argument is appended "
+                "the extension '.mps'"
+                )
+        .def("writeLp",
+                &Problem::writeDefaultMps)
         .add_property("maxNumIterations",
                 &Problem::getMaxNumIterations,
                 &Problem::setMaxNumIterations,
