@@ -64,8 +64,8 @@ Please report any failures on the bugtracker_.
 
 .. _bugtracker: https://code.google.com/p/yaposib/issues/list
 
-A quick code snippet
---------------------
+Code samples
+------------
 
 Let's dive into the code. Here is an example program that illustrates some
 features of yaposib:
