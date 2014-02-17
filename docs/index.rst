@@ -19,14 +19,14 @@ Manual
 Various Infos
 =============
 
-The repository is hosted on googlecode_.
+The repository is hosted on github_.
 
 ::
 
-    git clone https://code.google.com/p/yaposib/
+    git clone https://github.com/chmduquesne/yaposib
 
-A mirror is also maintained on github_, and can be useful in a number of
-situations, like when you only have svn:
+If you are unable to use git, github offers nice features, such as
+checkouting the code from svn.
 
 ::
 
@@ -35,7 +35,6 @@ situations, like when you only have svn:
 The license is EPL_.
 
 .. _github: https://github.com/chmduquesne/yaposib
-.. _googlecode: https://code.google.com/p/yaposib/
 .. _EPL: http://www.eclipse.org/legal/epl-v10.html
 
 Indices and tables
