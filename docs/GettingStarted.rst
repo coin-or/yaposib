@@ -36,7 +36,7 @@ Alternative: development version
 
 ::
 
-    git clone https://code.google.com/p/yaposib/
+    git clone https://github.com/coin-or/yaposib.git
 
 3. Run setup.py
 
@@ -62,7 +62,7 @@ necessarily means that yaposib is completely unusable with your solver, it
 might simply mean that it was not tested yet combined with your solver.
 Please report any failures on the bugtracker_.
 
-.. _bugtracker: https://code.google.com/p/yaposib/issues/list
+.. _bugtracker: https://github.com/coin-or/yaposib/issues
 
 Code samples
 ------------
@@ -171,4 +171,4 @@ shipped as the command line utility `yaposib-solve`
 
 Other examples are available in the examples_ directory.
 
-.. _examples: http://code.google.com/p/yaposib/source/browse/#git%2Fexamples
+.. _examples: https://github.com/coin-or/yaposib/tree/master/examples

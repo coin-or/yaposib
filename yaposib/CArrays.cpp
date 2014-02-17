@@ -1,6 +1,6 @@
 #include "CArrays.hpp"
 
-/// @author Christophe-Marie Duquesne <chm.duquesne@gmail.com>
+/// @author Christophe-Marie Duquesne <chmd@chmd.fr>
 /// created the 2010-07-24
 
 #include <stdexcept>

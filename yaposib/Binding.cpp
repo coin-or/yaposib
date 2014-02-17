@@ -1,4 +1,4 @@
-/// @author Christophe-Marie Duquesne <chm.duquesne@gmail.com>
+/// @author Christophe-Marie Duquesne <chmd@chmd.fr>
 
 #include "Problem.hpp"
 #include "CArrays.hpp"

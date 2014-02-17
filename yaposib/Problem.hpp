@@ -2,7 +2,7 @@
 #define PROBLEM_HPP
 
 /// @file:          Problem.hpp
-/// @author:        Christophe-Marie Duquesne <chm.duquesne@gmail.com>
+/// @author:        Christophe-Marie Duquesne <chmd@chmd.fr>
 /// @created:       2010-07-21
 
 #include <string>

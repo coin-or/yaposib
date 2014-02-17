@@ -2,7 +2,7 @@
 #define OBJ_HPP
 
 /// @file:          Obj.hpp
-/// @author:        Christophe-Marie Duquesne <chm.duquesne@gmail.com>
+/// @author:        Christophe-Marie Duquesne <chmd@chmd.fr>
 /// @created:       2010-07-24
 
 #include <string>

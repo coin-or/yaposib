@@ -14,7 +14,7 @@ I can't add colums/rows
     counts the maximum row refered by the column you add, and add as many
     empty rows as needed in your problem. Same goes for the rows.
 
-How efficiently does yaposib accesses to solvers memory?
+How efficiently does yaposib access to solvers memory?
     yaposib's design has been driven by memory access efficiency. It is
     built on the top of the C++ OsiSolverInterface_ class of COIN-OSI.
     You can thus manipulate and modify the rows/columns of the same

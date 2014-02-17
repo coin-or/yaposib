@@ -23,18 +23,18 @@ The repository is hosted on github_.
 
 ::
 
-    git clone https://github.com/chmduquesne/yaposib
+    git clone https://github.com/coin-or/yaposib.git
 
 If you are unable to use git, github offers nice features, such as
 checkouting the code from svn.
 
 ::
 
-    svn checkout https://github.com/chmduquesne/yaposib
+    svn checkout https://github.com/coin-or/yaposib
 
 The license is EPL_.
 
-.. _github: https://github.com/chmduquesne/yaposib
+.. _github: https://github.com/coin-or/yaposib
 .. _EPL: http://www.eclipse.org/legal/epl-v10.html
 
 Indices and tables
