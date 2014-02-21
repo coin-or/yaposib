@@ -5,6 +5,9 @@ install:
 python:
     - 2.7
 before_script:
+    - sudo updatedb
+    - locate osi.pc
+    - locate python.pc
     - sudo pip install yaposib
 script:
     - yaposib-config
