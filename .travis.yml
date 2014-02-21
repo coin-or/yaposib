@@ -4,10 +4,11 @@ install:
     - sudo apt-get install -qq coinor-libosi-dev python-dev libboost-python-dev
 python:
     - 2.7
+env:
+    - PKG_CONFIG_PATH=/usr/lib/i386-linux-gnu/pkgconfig/:${PKG_CONFIG_PATH}
 before_script:
-    - sudo updatedb
-    - locate osi.pc
-    - locate python.pc
-    - sudo pip install yaposib
+    - ls /usr/lib
+    - uname -a
+    -  sudo pip install yaposib
 script:
     - yaposib-config
