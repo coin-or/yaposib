@@ -9,7 +9,7 @@ install:
 python:
     - 2.7
 env:
-    - PKG_CONFIG_PATH=/usr/lib/`uname -m`-linux-gnu/pkgconfig/:${PKG_CONFIG_PATH}
+    - PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/:${PKG_CONFIG_PATH}
 before_script:
     -  sudo pip install yaposib
 script:
