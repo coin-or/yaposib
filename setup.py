@@ -80,7 +80,7 @@ def yaposib_extension():
 setup(name="yaposib",
       version="0.3.2",
       description= __doc__,
-      long_description = open("README").read(),
+      long_description = open("README.md").read(),
       license = open("COPYING").read(),
       keywords = ["Optimization", "Linear Programming", "Operations Research"],
       author="Christophe-Marie Duquesne",
