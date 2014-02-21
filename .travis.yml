@@ -1,7 +1,7 @@
 before_install:
     - sudo apt-get update -qq
 install:
-    - sudo apt-get install -qq coin-or-libosi-dev python-dev libboost-python-dev
+    - sudo apt-get install -qq coinor-libosi-dev python-dev libboost-python-dev
 python:
     - 2.7
 before_script:
