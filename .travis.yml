@@ -7,8 +7,6 @@ install:
     - sudo apt-get install -qq coinor-libosi-dev
     - sudo apt-get install -qq coinor-libcoinutils-dev
     - sudo apt-get install -qq coinor-libclp-dev
-    - sudo apt-get install -qq coinor-libcbc-dev
-    - sudo apt-get install -qq coinor-libcgl-dev
     - sudo apt-get install -qq libbz2-dev
     - sudo apt-get install -qq python-dev
     - sudo apt-get install -qq libboost-python-dev
