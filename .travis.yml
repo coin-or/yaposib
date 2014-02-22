@@ -4,12 +4,15 @@ install:
     - sudo apt-get install -qq build-essential
     - sudo apt-get install -qq pkg-config
     - sudo apt-get install -qq coinor-libosi-dev
+    - sudo apt-get install -qq coinor-libutils-dev
+    - sudo apt-get install -qq coinor-libclp-dev
+    - sudo apt-get install -qq coinor-libcbc-dev
+    - sudo apt-get install -qq coinor-libcgl-dev
+    - sudo apt-get install -qq libbz2-dev
     - sudo apt-get install -qq python-dev
     - sudo apt-get install -qq libboost-python-dev
 python:
     - 2.7
-env:
-    - PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/:${PKG_CONFIG_PATH}
 before_script:
     -  sudo python setup.py install
 script:
