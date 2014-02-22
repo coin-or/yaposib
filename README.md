@@ -1,6 +1,8 @@
 YAPOSIB
 =======
 
+[![Build Status](https://travis-ci.org/coin-or/yaposib.png?branch=master)](https://travis-ci.org/coin-or/yaposib)
+
 OVERVIEW
 --------
 
