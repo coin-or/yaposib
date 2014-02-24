@@ -10,18 +10,34 @@ Installing
 Recommended method: pip
 ```````````````````````
 
-1. Install pip, python-dev and boost::python. On ubuntu:
+1. Install the basic compilation tools and pkg-config. On Ubuntu:
 
 ::
 
-    sudo apt-get install python-pip python-dev libboost-python-dev
+    sudo apt-get install -qq build-essential pkg-config
 
-2. Install osi. If you want support for commercial solvers, relying on
-   your distribution is not recommended. Otherwise, using a package from
-   your distribution is fine. Note that if you modify the Osi installed on
-   your machine, you will have to recompile yaposib.
+2. Install the boost python development packages. On Ubuntu:
 
-3. Use pip to install yaposib:
+::
+
+    sudo apt-get install python-dev libboost-python-dev
+
+
+3. Install osi and dependencies. If you want support for commercial
+   solvers, you will probably need to recompile yaposib. Otherwise, using
+   a package from your distribution is fine. On Ubuntu:
+
+::
+
+    sudo apt-get install coinor-libosi-dev coinor-libcoinutils-dev coinor-libclp-dev libbz2-dev
+
+4. Install python-pip. On Ubuntu:
+
+::
+
+    sudo apt-get install python-pip
+
+4. Use pip to install yaposib:
 
 ::
 
@@ -30,7 +46,7 @@ Recommended method: pip
 Alternative: development version
 ````````````````````````````````
 
-1. Follow 1. and 2. from the previous method
+1. Follow 1., 2. and 3. from the previous method
 
 2. Clone the repository
 
