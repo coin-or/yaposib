@@ -754,5 +754,4 @@ class TestYaposib(unittest.TestCase):
 
 def main():
     #suite = unittest.TestLoader().loadTestsFromTestCase(TestYaposib)
-    unittest.defaultTestLoader.loadTestsFromTestCase(TestYaposib)
-    unittest.main(verbosity=2)
+    unittest.main(module = 'yaposib.test.test_yaposib', verbosity=2)
