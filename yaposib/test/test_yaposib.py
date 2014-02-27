@@ -622,7 +622,7 @@ class TestYaposib(unittest.TestCase):
         lpfile = ["\Problem name: ",
         "",
         "Minimize",
-        "continuous: x + 4 y + 9 z",
+        "OBJROW: x + 4 y + 9 z",
         "Subject To",
         "c1:  x + y <= 5",
         "c2:  x + z >= 10",
@@ -753,5 +753,4 @@ class TestYaposib(unittest.TestCase):
                     )
 
 def main():
-    #suite = unittest.TestLoader().loadTestsFromTestCase(TestYaposib)
     unittest.main(module = 'yaposib.test.test_yaposib', verbosity=2)
