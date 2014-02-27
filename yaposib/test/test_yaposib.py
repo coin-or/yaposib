@@ -753,5 +753,6 @@ class TestYaposib(unittest.TestCase):
                     )
 
 def main():
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestYaposib)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    #suite = unittest.TestLoader().loadTestsFromTestCase(TestYaposib)
+    #unittest.TextTestRunner(verbosity=2).run(suite)
+    unittest.main(verbosity=2)
