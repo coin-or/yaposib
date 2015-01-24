@@ -134,7 +134,7 @@ void Rows::update()
 
 const Row Rows_helper::get(Rows const& rows, int i)
 {
-    if (i >= rows._problem->getNumRows() or i < 0)
+    if (i >= rows._problem->getNumRows() || i < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -143,7 +143,7 @@ const Row Rows_helper::get(Rows const& rows, int i)
 
 void Rows_helper::del(Rows &rows, int i)
 {
-    if (i >= rows._problem->getNumRows() or i < 0)
+    if (i >= rows._problem->getNumRows() || i < 0)
     {
         throw std::runtime_error("Index out of range");
     }

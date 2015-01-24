@@ -5,8 +5,8 @@
 #include "Row.hpp"
 #include "Obj.hpp"
 
-#include <coin/CoinPackedVector.hpp>
-#include <boost/python.hpp>
+#include <CoinPackedVector.hpp>
+#include <boost\python.hpp>
 using namespace boost::python;
 
 BOOST_PYTHON_MODULE(_yaposib)

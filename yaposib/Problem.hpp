@@ -6,7 +6,7 @@
 /// @created:       2010-07-21
 
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <boost\shared_ptr.hpp>
 #include "CArrays.hpp"
 #include "Row.hpp"
 #include "Col.hpp"

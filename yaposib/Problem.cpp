@@ -4,49 +4,49 @@
 /// created the 2010-07-21
 
 // OSI includes
-#include <coin/OsiSolverInterface.hpp>
+#include <OsiSolverInterface.hpp>
 #ifdef Cbc
-#include <coin/OsiCbcSolverInterface.hpp>
+#include <OsiCbcSolverInterface.hpp>
 #endif
 #ifdef Clp
-#include <coin/OsiClpSolverInterface.hpp>
+#include <OsiClpSolverInterface.hpp>
 #endif
 #ifdef Cpx
-#include <coin/OsiCpxSolverInterface.hpp>
+#include <OsiCpxSolverInterface.hpp>
 #endif
 #ifdef Dylp
-#include <coin/OsiDylpSolverInterface.hpp>
+#include <OsiDylpSolverInterface.hpp>
 #endif
 #ifdef Fmp
-#include <coin/OsiFmpSolverInterface.hpp>
+#include <OsiFmpSolverInterface.hpp>
 #endif
 #ifdef Glpk
-#include <coin/OsiGlpkSolverInterface.hpp>
+#include <OsiGlpkSolverInterface.hpp>
 #endif
 #ifdef Grb
-#include <coin/OsiGrbSolverInterface.hpp>
+#include <OsiGrbSolverInterface.hpp>
 #endif
 #ifdef Msk
-#include <coin/OsiMskSolverInterface.hpp>
+#include <OsiMskSolverInterface.hpp>
 #endif
 #ifdef Osl
-#include <coin/OsiOslSolverInterface.hpp>
+#include <OsiOslSolverInterface.hpp>
 #endif
 #ifdef Spx
-#include <coin/OsiSpxSolverInterface.hpp>
+#include <OsiSpxSolverInterface.hpp>
 #endif
 #ifdef Sym
-#include <coin/OsiSymSolverInterface.hpp>
+#include <OsiSymSolverInterface.hpp>
 #endif
 #ifdef Vol
-#include <coin/OsiVolSolverInterface.hpp>
+#include <OsiVolSolverInterface.hpp>
 #endif
 #ifdef Xpr
-#include <coin/OsiXprSolverInterface.hpp>
+#include <OsiXprSolverInterface.hpp>
 #endif
-#include <coin/CoinPackedVector.hpp>
-#include <coin/CoinShallowPackedVector.hpp>
-#include <coin/CoinPackedMatrix.hpp>
+#include <CoinPackedVector.hpp>
+#include <CoinShallowPackedVector.hpp>
+#include <CoinPackedMatrix.hpp>
 
 // std includes
 #include <stdexcept>
@@ -417,7 +417,7 @@ void Problem::setMaximize(bool maximize)
 
 bool Problem::getInteger(int index) const
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -426,7 +426,7 @@ bool Problem::getInteger(int index) const
 
 void Problem::setInteger(int index, bool isInteger)
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -442,7 +442,7 @@ void Problem::setInteger(int index, bool isInteger)
 
 double Problem::getObjCoef(int index) const
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -451,7 +451,7 @@ double Problem::getObjCoef(int index) const
 
 void Problem::setObjCoef(int index, double value)
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -483,7 +483,7 @@ void Problem::addRow(const CoinPackedVector &vector)
 
 std::string Problem::getRowName(int index) const
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -492,7 +492,7 @@ std::string Problem::getRowName(int index) const
 
 void Problem::setRowName(int index, std::string name)
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -501,7 +501,7 @@ void Problem::setRowName(int index, std::string name)
 
 const double Problem::getRowLower(int index) const
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -510,7 +510,7 @@ const double Problem::getRowLower(int index) const
 
 void Problem::setRowLower(int index, double value)
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -519,7 +519,7 @@ void Problem::setRowLower(int index, double value)
 
 const double Problem::getRowUpper(int index) const
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -528,7 +528,7 @@ const double Problem::getRowUpper(int index) const
 
 void Problem::setRowUpper(int index, double value)
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -542,7 +542,7 @@ int Problem::getNumRows() const
 
 void Problem::deleteRow(int index)
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -562,7 +562,7 @@ Cols Problem::getCols()
 
 std::string Problem::getColName(int index) const
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -571,7 +571,7 @@ std::string Problem::getColName(int index) const
 
 void Problem::setColName(int index, std::string name)
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -580,7 +580,7 @@ void Problem::setColName(int index, std::string name)
 
 const double Problem::getColLower(int index) const
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -589,7 +589,7 @@ const double Problem::getColLower(int index) const
 
 void Problem::setColLower(int index, double value)
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -598,7 +598,7 @@ void Problem::setColLower(int index, double value)
 
 const double Problem::getColUpper(int index) const
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -607,7 +607,7 @@ const double Problem::getColUpper(int index) const
 
 void Problem::setColUpper(int index, double value)
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -635,7 +635,7 @@ void Problem::addCol(const CoinPackedVector &vector)
 
 void Problem::deleteCol(int index)
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -715,7 +715,7 @@ double Problem::getObjValue() const
 
 double Problem::getColSolution(int index) const
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -724,7 +724,7 @@ double Problem::getColSolution(int index) const
 
 void Problem::setColSolution(int index, double value)
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -741,7 +741,7 @@ void Problem::setColSolution(int index, double value)
 
 double Problem::getReducedCost(int index) const
 {
-    if (index >= getNumCols() or index < 0)
+    if (index >= getNumCols() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -750,7 +750,7 @@ double Problem::getReducedCost(int index) const
 
 double Problem::getDualValue(int index) const
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -759,7 +759,7 @@ double Problem::getDualValue(int index) const
 
 void Problem::setDualValue(int index, double value)
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -776,7 +776,7 @@ void Problem::setDualValue(int index, double value)
 
 double Problem::getRowActivity(int index) const
 {
-    if (index >= getNumRows() or index < 0)
+    if (index >= getNumRows() || index < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -789,7 +789,7 @@ double Problem::getRowActivity(int index) const
 Indices Problem::getRowIndices(int row)
 {
     Indices res;
-    if (row >= getNumRows() or row < 0)
+    if (row >= getNumRows() || row < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -804,7 +804,7 @@ Indices Problem::getRowIndices(int row)
 
 Values Problem::getRowElements(int row)
 {
-    if (row >= getNumRows() or row < 0)
+    if (row >= getNumRows() || row < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -821,7 +821,7 @@ Values Problem::getRowElements(int row)
 Indices Problem::getColIndices(int col)
 {
     Indices res;
-    if (col >= getNumCols() or col < 0)
+    if (col >= getNumCols() || col < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -836,7 +836,7 @@ Indices Problem::getColIndices(int col)
 
 Values Problem::getColElements(int col)
 {
-    if (col >= getNumCols() or col < 0)
+    if (col >= getNumCols() || col < 0)
     {
         throw std::runtime_error("Index out of range");
     }

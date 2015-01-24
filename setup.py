@@ -13,7 +13,9 @@ import sys
 def pkgconfig(*packages, **kw):
     """Finds a package using pkg-config"""
     flag_map = {'-I': 'include_dirs', '-L': 'library_dirs', '-l': 'libraries'}
-    for token in subprocess.check_output("pkg-config --libs --cflags %s" % ' '.join(packages), shell=True).split():
+    for token in subprocess.check_output(".\pkg-config --libs --cflags %s" %
+                                         ' '.join(packages),
+                                         shell=True).split():
         kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
     return kw
 
@@ -36,33 +38,29 @@ def yaposib_extension():
             }
     kw = {
             # python2.7 wants PY_FORMAT_LONG_LONG to be defined
-            "define_macros": [("PY_FORMAT_LONG_LONG", "I64")],
-            "include_dirs": [],
-            "library_dirs": [],
+            "define_macros": [("PY_FORMAT_LONG_LONG", "I64"),
+                              ("Sym", None),
+                              ("Clp", None)],
+            "include_dirs": ['C:\\Program Files (x86)\\boost_1_55_0\\boost_1_55_0',
+                             'C:\\Program Files (x86)\\COIN-OR\\1.7.4\\win32-msvc9\\include\\coin'],
+            "library_dirs": ['C:\\Python27\\libs',
+                             'C:\\Program Files (x86)\\COIN-OR\\1.7.4\\win32-msvc9\\lib',
+                             'C:\\Program Files (x86)\\COIN-OR\\1.7.4\\win32-msvc9\\lib\\intel'],
             # TODO: find a way to detect boost_python
-            "libraries": [ "boost_python" ]
+            "libraries": [ "boost_python-vc90-mt-1_55",
+                           "libboost_python-vc90-mt-1_55",
+                           "libOsi",
+                           "libCoinUtils",
+                           "libOsiClp",
+                           "libOsiSym",
+                           "libSym",
+                           "libCgl",
+                           "libClp",
+                           "libcoinglpk",
+                           "mkl_intel_c",
+                           "mkl_sequential",
+                           "mkl_core"]
             }
-
-    # Required stuff. We fail if we miss that.
-    for lib in ('python', 'osi'):
-        try:
-            pc = pkgconfig(lib)
-            kw["include_dirs"] += pc.get("include_dirs", [])
-            kw["library_dirs"] += pc.get("library_dirs", [])
-            kw["libraries"] += pc.get("libraries", [])
-        except subprocess.CalledProcessError:
-            sys.exit(1)
-
-    # Optional stuff.
-    for solvername, lib in solvers.items():
-        try:
-            pc = pkgconfig(lib)
-            kw["include_dirs"] += pc.get("include_dirs", [])
-            kw["library_dirs"] += pc.get("library_dirs", [])
-            kw["libraries"] += pc.get("libraries", [])
-            kw["define_macros"] += [ (solvername, None) ]
-        except subprocess.CalledProcessError:
-            pass
 
     return Extension("yaposib._yaposib",
             sources = [

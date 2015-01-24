@@ -145,7 +145,7 @@ void Cols::update()
 
 const Col Cols_helper::get(Cols const& cols, int i)
 {
-    if (i >= cols._problem->getNumCols() or i < 0)
+    if (i >= cols._problem->getNumCols() || i < 0)
     {
         throw std::runtime_error("Index out of range");
     }
@@ -154,7 +154,7 @@ const Col Cols_helper::get(Cols const& cols, int i)
 
 void Cols_helper::del(Cols &cols, int i)
 {
-    if (i >= cols._problem->getNumCols() or i < 0)
+    if (i >= cols._problem->getNumCols() || i < 0)
     {
         throw std::runtime_error("Index out of range");
     }
