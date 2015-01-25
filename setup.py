@@ -6,9 +6,10 @@ python. Yaposib was created in order to be integrated in pulp-or
 (http://code.google.com/p/pulp-or).
 """
 from __future__ import with_statement
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 import subprocess
 import sys
+from os.path import join
 
 def pkgconfig(*packages, **kw):
     """Finds a package using pkg-config"""
@@ -62,21 +63,22 @@ def yaposib_extension():
                            "mkl_core"]
             }
 
-    return Extension("yaposib._yaposib",
-            sources = [
-                "yaposib/CArrays.cpp",
-                "yaposib/Col.cpp",
-                "yaposib/Row.cpp",
-                "yaposib/Obj.cpp",
-                "yaposib/Problem.cpp",
-                "yaposib/Binding.cpp"
-                ],
-            language = 'c++',
-            **kw
-            )
+    files = [ "CArrays.cpp",
+              "Col.cpp",
+              "Row.cpp",
+              "Obj.cpp",
+              "Problem.cpp",
+              "Binding.cpp",
+            ]
+    sources = [join('src/yaposib', f) for f in files]
+    return Extension("_yaposib",
+                     sources = sources,
+                     language = 'c++',
+                     **kw
+                    )
 
 setup(name="yaposib",
-      version="0.3.2",
+      version="0.4.0",
       description= __doc__,
       long_description = open("README.md").read(),
       license = open("COPYING").read(),
@@ -91,8 +93,9 @@ setup(name="yaposib",
                      "Natural Language :: English",
                      "Topic :: Scientific/Engineering :: Mathematics",
       ],
-      packages = ['yaposib', 'yaposib.test'] ,
       ext_modules = [ yaposib_extension() ],
       package_data = { "" : [ "lib/*" ] },
+      packages=['coinor.yaposib', 'coinor.yaposib.test', 'coinor'],
+      package_dir = {'coinor': 'src'},
       scripts = [ "scripts/yaposib-config", "scripts/yaposib-solve" ]
       )
