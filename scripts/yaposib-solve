@@ -1,5 +1,10 @@
 #!env python
-import yaposib
+
+try:
+    import src.yaposib as yaposib
+except:
+    import coinor.yaposib as yaposib
+
 import sys
 
 def main():
