@@ -1,6 +1,9 @@
 #!env python
 import unittest
-import yaposib
+try:
+    import src.yaposib as yaposib
+except:
+    import coinor.yaposib as yaposib
 
 def yaposibTestCheck(prob, okstatus, sol = {},
                    reducedcosts = None,
@@ -753,4 +756,7 @@ class TestYaposib(unittest.TestCase):
                     )
 
 def main():
-    unittest.main(module = 'yaposib.test.test_yaposib', verbosity=2)
+    try:
+        unittest.main(module = 'src.yaposib.test.test_yaposib', verbosity=2)
+    except:
+        unittest.main(module = 'coinor.yaposib.test.test_yaposib', verbosity=2)
