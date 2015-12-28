@@ -12,4 +12,4 @@ python:
 before_script:
     - sudo python setup.py install
 script:
-    - python scripts/yaposib-config
+    - python scripts/yaposib-solve examples/p0033.mps
