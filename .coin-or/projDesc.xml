@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type = "text/xsl" href = "http://www.coin-or.org/projects/autoGen.xsl"?>
+<projectData xmlns="coin-or.org" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="coin-or.org http://www.coin-or.org/projects/autoGen.xsd">
+
+  <projectBasics>
+      <projectName>YAPOSIB</projectName>
+      <projectRepo>yaposib</projectRepo>
+
+      <projectDescription>
+         Yaposib is a python binding to OSI, the Open Solver Interface from COIN-OR.
+         It intends to give access to various solvers through python.
+         Yaposib was created in order to be integrated in COIN-OR/PuLP.
+      </projectDescription>
+      <projectShortDescription>
+         A Python interface to OSI.
+      </projectShortDescription>
+
+      <projectManager>n/a</projectManager>
+
+      <projectHomePage>https://github.com/coin-or/yaposib</projectHomePage>
+
+      <projectLicense>Eclipse Public License 1.0</projectLicense>
+      <projectLicenseURL>https://opensource.org/licenses/EPL-1.0</projectLicenseURL>
+
+      <coinLinkedProjects>
+         <coinProject>
+            <repoName>OSI</repoName>
+         </coinProject>
+      </coinLinkedProjects>
+
+      <otherLinkedPackages>
+         <otherPackage>
+            <packageName>boost::python</packageName>
+            <packageURL>http://www.boost.org</packageURL>
+            <requiredOrOptional>Required</requiredOrOptional>
+         </otherPackage>
+      </otherLinkedPackages>
+
+      <projectLanguage>Python</projectLanguage>
+
+      <developmentStatus>
+        <activityStatus>Abandoned</activityStatus>
+        <maturityLevel>5</maturityLevel>
+      </developmentStatus>
+
+      <testedPlatforms>
+      </testedPlatforms>
+
+      <projectCategories>
+      <category>
+          Interfaces
+      </category>
+      <category>
+          Optimization deterministic linear continuous
+      </category>
+      <category>
+          Optimization deterministic linear discrete
+      </category>
+      </projectCategories>
+      
+  </projectBasics>
+
+  <leftMenuLinks>                                                   
+     <documentation>http://yaposib.readthedocs.org</documentation>
+     <sourceCodeDownload>https://github.com/coin-or/yaposib/releases</sourceCodeDownload>
+     <binaryDownload>https://pypi.org/project/yaposib</binaryDownload>
+     <mailingList> </mailingList>
+  </leftMenuLinks>
+
+</projectData>
